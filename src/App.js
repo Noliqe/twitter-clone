@@ -1,9 +1,9 @@
 import './App.css';
 import React, { useState } from 'react';
-import './Components/loginPage.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from './Components/Home';
+import Content from './Components/Content';
 import Header from './Components/Header';
+import Sidebar from './Components/Sidebar';
 // import  { Navigate } from 'react-router-dom'
 
 function App() {
@@ -23,8 +23,10 @@ function App() {
     <div className='App'>
     <BrowserRouter>
     <Header />
+    <Content />
+    <Sidebar />
     <Routes>
-    <Route path="/" element={<Home />} />
+    {/* <Route path="/" element={<Home />} /> */}
     </Routes>
     </BrowserRouter>
     </div>

@@ -1,4 +1,4 @@
-import './Header.css';
+import './Style.css';
 import { Link } from 'react-router-dom';
 import GorillaIcon from './Images/icons8-gorilla-80.png';
 import HomeIcon from './Images/icons8-home-page-64.png';
