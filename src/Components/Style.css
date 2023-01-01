@@ -84,6 +84,10 @@
     width: 150px;
 }
 
+.sidebar-login > a > button {
+    width: 150px;
+}
+
 .sidebar-follow {
     display: flex;
     flex-direction: column;
@@ -109,4 +113,14 @@
     flex-direction: row;
     align-items: center;
     gap: 10px;
+}
+
+/* signup */
+
+.signup {
+    display: flex;
+    justify-content: center;
+    background-color: antiquewhite;
+    width: 100vw;
+    height: 100vh;
 }

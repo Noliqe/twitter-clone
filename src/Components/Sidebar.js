@@ -1,7 +1,8 @@
 import './Style.css';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-const Sidebar = () => {
+const Sidebar = (props) => {
     const [loggedIn, setLoggedIn] = useState(false); // temp
 
     const handleContent = () => {
@@ -11,7 +12,9 @@ const Sidebar = () => {
                     <h2>New to Gorillia?</h2>
                     <p>Sign up now to get your own personalized timeline!</p>
                     <button>Sign up with google</button>
+                    <Link to='/signup'>
                     <button>Sign up with email</button>
+                    </Link>
                 </div>
             )
         }
@@ -37,7 +40,10 @@ const Sidebar = () => {
                 </ul>
             </div>
         )
-    }
+}
+
+
+
 
 return (
     <div className="sidebar">
