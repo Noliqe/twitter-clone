@@ -4,23 +4,22 @@ import GorillaIcon from './Images/icons8-gorilla-80.png';
 import HomeIcon from './Images/icons8-home-page-64.png';
 import hashtagIcon from './Images/icons8-hashtag-50.png';
 import ProfileIcon from './Images/icons8-customer-50.png';
+import Dots from './Images/icons8-ellipsis-50.png';
 import React, { useState, useEffect } from 'react';
 
-const Header = () => {
-    const [loggedIn, setLoggedIn] = useState(false); // temp
+const Header = (props) => {
     const [display, setDisplay] = useState('none');
 
     useEffect(() => {
-        if (loggedIn) {
+        if (props.user !== null) {
             if (display === 'none') {
-                setDisplay('block');
+                setDisplay('flex');
             }
         }
-      }, [loggedIn]);
+      }, []);
 
 return (
     <div className="header">
-    <div className='header-filling'></div>
     <div className='header-list'>
     <ul>
         <Link to='/'>
@@ -40,6 +39,16 @@ return (
         </li>
     </ul>
     </div>
+    <button className='header-user'>
+        <div className='header-profile-picture'>
+        <img src={props.profilePicture()} alt='profile'></img>
+        </div>
+            <div className='header-userName'>
+                <p>Name</p>
+                <p>@Name</p>
+            </div>
+        <img src={Dots} alt='dots'></img>
+    </button>
 </div>
 )
 }

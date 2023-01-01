@@ -3,10 +3,9 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Sidebar = (props) => {
-    const [loggedIn, setLoggedIn] = useState(false); // temp
 
     const handleContent = () => {
-        if (!loggedIn) {
+        if (props.user === null) {
             return (
                 <div className='sidebar-login'>
                     <h2>New to Gorillia?</h2>
@@ -23,17 +22,17 @@ const Sidebar = (props) => {
                 <h2>Who to follow</h2>
                 <ul>
                     <li>
-                        <img alt='profile'></img>
+                        <img src={props.profilePicture()} alt='profile'></img>
                         <p>Name</p>
                         <button>Follow</button>
                     </li>
                     <li>
-                        <img alt='profile'></img>
+                        <img src={props.profilePicture()} alt='profile'></img>
                         <p>Name</p>
                         <button>Follow</button>
                     </li>
                     <li>
-                        <img alt='profile'></img>
+                        <img src={props.profilePicture()} alt='profile'></img>
                         <p>Name</p>
                         <button>Follow</button>
                     </li>

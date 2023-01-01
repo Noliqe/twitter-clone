@@ -2,7 +2,8 @@
 
 .header {
     display: flex;
-    width: 30vw;
+    flex-direction: column;
+    width: 25vw;
     height: 100vh;
     border-right: 2px solid white;
     background-color: wheat;
@@ -16,6 +17,8 @@
     width: 20vw;
     display: flex;
     justify-content: left;
+    margin-left: 5vw;
+    flex: 1;
 }
   
 .header-list > ul {
@@ -45,10 +48,51 @@
     align-self: center;
 }
 
+.header-user {
+    display: flex;
+    justify-content: space-around;
+    margin-left: 5vw;
+    margin-right: 50px;
+    margin-bottom: 20px;
+    border-radius: 25px;
+    align-items: center;
+    max-width: 250px;
+}
+
+.header-user > img {
+    max-width: 40px;
+    height: auto;
+    align-self: center;
+}
+
+.header-profile-picture {
+    display: flex;
+    align-items: center;
+}
+
+.header-profile-picture > img {
+    max-width: 50px;
+    height: auto;
+    margin: 5px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.header-userName > p {
+    display: flex;
+    padding: 0;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
 /* Content */
 
 .Content {
-    width: 40vw;
+    width: 45vw;
 }
 
 /* Sidebar */
@@ -113,6 +157,18 @@
     flex-direction: row;
     align-items: center;
     gap: 10px;
+}
+
+.sidebar-follow > ul > li > img {
+    max-width: 50px;
+    height: auto;
+    margin: 5px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 /* signup */

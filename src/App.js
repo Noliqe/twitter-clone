@@ -66,6 +66,7 @@ const signUserIn = (email, password) => {
     // Signed in 
     const user = userCredential.user;
     // ...
+    console.log(auth.currentuser);
   })
   .catch((error) => {
     const errorCode = error.code;
@@ -96,13 +97,27 @@ const checkLoggedIn = () => {
   });
 }
 
+  // Returns the signed-in user's profile Pic URL.
+  const getProfilePicUrl = () => {
+    // return getAuth().currentUser.photoURL || 'https://www.w3schools.com/howto/img_avatar.png';
+    try {
+      if (getAuth().currentUser !== null) {
+        return getAuth().currentUser.photoURL || 'https://www.w3schools.com/howto/img_avatar.png';
+      } else {
+        return 'https://www.w3schools.com/howto/img_avatar.png';
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
 
 
   return (
     <div className='App'>
     <BrowserRouter>
     <Routes>
-    <Route path="/" element={<><Header/><Content/><Sidebar/></>} />
+    <Route path="/" element={<><Header user={auth.currentuser} profilePicture={getProfilePicUrl}/><Content/><Sidebar user={auth.currentuser} profilePicture={getProfilePicUrl}/></>} />
     <Route path="/signup" element={<SignUp createAcc={getLoginForm}/>} />
     </Routes>
     </BrowserRouter>
