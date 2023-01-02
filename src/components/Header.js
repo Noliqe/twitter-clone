@@ -8,7 +8,6 @@ import Dots from '../assets/icons8-ellipsis-50.png';
 import ArrowDown from '../assets/icons8-sort-down-48.png';
 import React, { useState, useEffect } from 'react';
 import getProfilePicUrl from '../components/functions/profilePicture';
-import { auth } from '../config/firebase-config.js';
 import checkLoggedIn from './functions/checkLoggedIn';
 
 const Header = (props) => {
@@ -81,6 +80,7 @@ return (
                 <p>Profile</p>
             {/* </Link> */}
         </li>
+        <button>Growl</button>
     </ul>
     </div>
     {handleRender()}

@@ -1,5 +1,25 @@
 /* Content */
 
 .Content {
-    width: 45vw;
+    width: 30vw;
+    border: 1px solid grey;
+}
+
+.content-message-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: 1px solid grey;
+}
+
+.content-profile-picture > img {
+    max-width: 50px;
+    height: auto;
+    margin: 5px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }

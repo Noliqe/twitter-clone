@@ -3,7 +3,8 @@
 .header {
     display: flex;
     flex-direction: column;
-    width: 25vw;
+    align-items: flex-end;
+    width: 30vw;
     height: 100vh;
     border-right: 2px solid white;
     background-color: wheat;
@@ -14,10 +15,8 @@
 }
   
 .header-list {
-    width: 20vw;
+    width: 200px;
     display: flex;
-    justify-content: left;
-    margin-left: 5vw;
     flex: 1;
 }
   
@@ -33,7 +32,7 @@
     align-items: flex-start;
     gap: 10px;
     margin-top: 10px;
-    width: 20vw;
+    width: 200px;
 }
   
 .header-list > ul > li:hover {
@@ -48,20 +47,30 @@
     align-self: center;
 }
 
+.header-list > ul > button {
+    width: 180px;
+    height: 40px;
+    border-radius: 30px;
+    border: 0px;
+    color: white;
+    background-color: rgb(57, 231, 57);
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 50px;
+}
+
 .header-user {
     display: flex;
     justify-content: space-around;
-    margin-left: 5vw;
-    margin-right: 50px;
+    margin-right: 10px;
     margin-bottom: 20px;
     border-radius: 25px;
     align-items: center;
-    max-width: 250px;
-    min-width: 200px;
+    width: 250px;
 }
 
 .header-user > img {
-    max-width: 40px;
+    max-width: 20px;
     height: auto;
     align-self: center;
 }
