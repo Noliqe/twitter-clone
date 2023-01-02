@@ -1,0 +1,32 @@
+/* signup */
+
+.signup {
+    display: flex;
+    justify-content: center;
+    background-color: antiquewhite;
+    width: 100vw;
+    height: 100vh;
+}
+
+.logout {
+    width: 100vw;
+    height: 100vh;
+    background-color: wheat;
+}
+
+.logout-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 300px;
+    background-color: rgb(206, 203, 203);
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    color: rgb(31, 31, 31);
+    padding: 32px;
+}

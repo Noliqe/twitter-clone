@@ -1,24 +1,28 @@
-import './Style.css';
+import '../styles/header.css';
 import { Link } from 'react-router-dom';
-import GorillaIcon from './Images/icons8-gorilla-80.png';
-import HomeIcon from './Images/icons8-home-page-64.png';
-import hashtagIcon from './Images/icons8-hashtag-50.png';
-import ProfileIcon from './Images/icons8-customer-50.png';
-import Dots from './Images/icons8-ellipsis-50.png';
-import ArrowDown from './Images/icons8-sort-down-48.png';
+import GorillaIcon from '../assets/icons8-gorilla-80.png';
+import HomeIcon from '../assets/icons8-home-page-64.png';
+import hashtagIcon from '../assets/icons8-hashtag-50.png';
+import ProfileIcon from '../assets/icons8-customer-50.png';
+import Dots from '../assets/icons8-ellipsis-50.png';
+import ArrowDown from '../assets/icons8-sort-down-48.png';
 import React, { useState, useEffect } from 'react';
+import getProfilePicUrl from '../components/functions/profilePicture';
+import { auth } from '../config/firebase-config.js';
+import checkLoggedIn from './functions/checkLoggedIn';
 
 const Header = (props) => {
     const [display, setDisplay] = useState('none');
     const [popUpDisplay, setPopUpDisplay] = useState('none');
 
     useEffect(() => {
-        if (props.user !== undefined) {
+        if (checkLoggedIn) {
             if (display === 'none') {
                 setDisplay('flex');
             }
         }
     }, []);
+
         
     const showProfilePopUp = () => {
         if (popUpDisplay === 'none') {
@@ -28,9 +32,9 @@ const Header = (props) => {
     }
 
     const handleRender = () => {
-        if (props.user !== undefined) {
+        if (checkLoggedIn) {
             return (
-                <div className="header">
+                <div className="header-profile">
                     <div className='profile-popup' style={{ display: popUpDisplay}}>
                     <div className='seperator'></div>
                     <img src={ArrowDown} alt='arrow'></img>
@@ -42,7 +46,7 @@ const Header = (props) => {
                 </div>
                 <button className='header-user' onClick={() => {showProfilePopUp()}}>
                     <div className='header-profile-picture'>
-                    <img src={props.profilePicture()} alt='profile'></img>
+                    <img src={getProfilePicUrl()} alt='profile'></img>
                     </div>
                     <div className='header-userName'>
                         <p style={{ fontWeight: '700'}}>Name</p>

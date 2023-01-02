@@ -1,10 +1,16 @@
+import createUser from './functions/createUser';
+import '../styles/signup.css';
+import { useNavigate } from 'react-router-dom';
+
 const Signup = (props) => {
+    const navigate = useNavigate();
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        props.createAcc(event.target[0].value, event.target[1].value);
+        createUser(event.target[0].value, event.target[1].value);
         event.target[0].value = ''; 
         event.target[1].value = '';
+        navigate('/');
     }
 
     return (

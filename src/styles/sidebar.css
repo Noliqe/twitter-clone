@@ -1,0 +1,111 @@
+/* Sidebar */
+  
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30vw;
+    height: 100vh;
+    border-left: 2px solid white;
+    background-color: grey;
+}
+
+.sidebar-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 25vw;
+    height: 300px;
+    border: 2px solid white;
+    border-radius: 10px;
+    margin-top: 20px;
+    background-color: rgb(219, 219, 219);
+}
+
+.sidebar-login > p {
+    width: 20vw;
+    text-align: center;
+}
+
+.sidebar-login > button {
+    width: 150px;
+}
+
+.sidebar-login > a > button {
+    width: 150px;
+}
+
+.sidebar-follow {
+    display: flex;
+    flex-direction: column;
+    width: 25vw;
+    height: 300px;
+    border: 2px solid white;
+    border-radius: 10px;
+    margin-top: 20px;
+    background-color: rgb(219, 219, 219);
+}
+
+.sidebar-follow > h2 {
+    text-align: center;
+}
+
+.sidebar-follow > ul {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-follow > ul > li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.sidebar-follow > ul > li > img {
+    max-width: 50px;
+    height: auto;
+    margin: 5px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.footer-login {
+    position: fixed;
+    display: flex;
+    justify-content: left;
+    bottom: 0px;
+    left: 0px;
+    width: 100vw;
+    background-color: red;
+    color: white;
+}
+
+.footer-login-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 70vw;
+}
+
+.footer-login-filling {
+    width: 25vw;
+}
+
+.footer-login-btn {
+    width: 100px;
+    height: 40px;
+    border-radius: 15px;
+    margin-right: 10px;  
+}
+
+.footer-signup-btn {
+    width: 100px;
+    height: 40px;
+    border-radius: 15px;
+    margin-right: 10px;  
+}

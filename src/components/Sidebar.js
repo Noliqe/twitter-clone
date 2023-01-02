@@ -1,11 +1,12 @@
-import './Style.css';
-import React, { useState } from 'react';
+import '../styles/sidebar.css';
 import { Link } from 'react-router-dom';
+import getProfilePicUrl from './functions/profilePicture';
+import checkLoggedIn from './functions/checkLoggedIn';
 
 const Sidebar = (props) => {
 
     const handleContent = () => {
-        if (props.user === undefined) {
+        if (!checkLoggedIn) {
             return (
                 <div className='sidebar-login'>
                     <h2>New to Gorillia?</h2>
@@ -37,17 +38,17 @@ const Sidebar = (props) => {
                 <h2>Who to follow</h2>
                 <ul>
                     <li>
-                        <img src={props.profilePicture()} alt='profile'></img>
+                        <img src={getProfilePicUrl()} alt='profile'></img>
                         <p>Name</p>
                         <button>Follow</button>
                     </li>
                     <li>
-                        <img src={props.profilePicture()} alt='profile'></img>
+                        <img src={getProfilePicUrl()} alt='profile'></img>
                         <p>Name</p>
                         <button>Follow</button>
                     </li>
                     <li>
-                        <img src={props.profilePicture()} alt='profile'></img>
+                        <img src={getProfilePicUrl()} alt='profile'></img>
                         <p>Name</p>
                         <button>Follow</button>
                     </li>

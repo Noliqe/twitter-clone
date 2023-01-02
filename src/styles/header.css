@@ -1,0 +1,133 @@
+/* Header */
+
+.header {
+    display: flex;
+    flex-direction: column;
+    width: 25vw;
+    height: 100vh;
+    border-right: 2px solid white;
+    background-color: wheat;
+}
+  
+.header-filling {
+    width: 10vw;
+}
+  
+.header-list {
+    width: 20vw;
+    display: flex;
+    justify-content: left;
+    margin-left: 5vw;
+    flex: 1;
+}
+  
+.header-list > ul {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+  
+.header-list > ul > li {
+    display: flex;
+    justify-content: left;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 10px;
+    width: 20vw;
+}
+  
+.header-list > ul > li:hover {
+    background-color: aliceblue;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+  
+.header-list > ul > li > img{
+    max-width: 40px;
+    height: auto;
+    align-self: center;
+}
+
+.header-user {
+    display: flex;
+    justify-content: space-around;
+    margin-left: 5vw;
+    margin-right: 50px;
+    margin-bottom: 20px;
+    border-radius: 25px;
+    align-items: center;
+    max-width: 250px;
+    min-width: 200px;
+}
+
+.header-user > img {
+    max-width: 40px;
+    height: auto;
+    align-self: center;
+}
+
+.header-profile-picture {
+    display: flex;
+    align-items: center;
+}
+
+.header-profile-picture > img {
+    max-width: 50px;
+    height: auto;
+    margin: 5px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.header-userName > p {
+    display: flex;
+    padding: 0;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.profile-popup {
+    position: fixed;
+    height: 80px;
+    width: 250px;
+    background-color: white;
+    bottom: 100px;
+    left: 5vw;
+    border-radius: 15px;
+}
+
+.profile-popup > img {
+    position: fixed;
+    bottom: 70px;
+    left: 175px;
+}
+
+.seperator {
+    border-bottom: 1px solid rgb(189, 188, 188);
+    margin-top: 10px;
+}
+
+.profile-logout {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin-top: 10px;
+    padding: 5px 0px;
+    padding-left: 5px;
+    height: 30px;
+    width: 245px;
+}
+
+.profile-logout > a {
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+}
+
+.profile-logout:hover {
+    background-color: rgba(226, 226, 226, 0.671);
+}
