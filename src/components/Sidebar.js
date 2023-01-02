@@ -2,6 +2,7 @@ import '../styles/sidebar.css';
 import { Link } from 'react-router-dom';
 import getProfilePicUrl from './functions/profilePicture';
 import checkLoggedIn from './functions/checkLoggedIn';
+import Searchbar from './searchbar';
 
 const Sidebar = (props) => {
 
@@ -34,6 +35,8 @@ const Sidebar = (props) => {
             )
         }
         return (
+            <div className='sidebar-container'>
+                <Searchbar />
             <div className='sidebar-follow'>
                 <h2>Who to follow</h2>
                 <ul>
@@ -53,6 +56,7 @@ const Sidebar = (props) => {
                         <button>Follow</button>
                     </li>
                 </ul>
+            </div>
             </div>
         )
 }

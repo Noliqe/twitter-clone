@@ -10,6 +10,12 @@
     background-color: grey;
 }
 
+.sidebar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .sidebar-login {
     display: flex;
     flex-direction: column;

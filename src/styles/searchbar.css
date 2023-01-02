@@ -1,0 +1,36 @@
+body {
+    --color-background: white;
+}
+
+
+.searchbar-container {
+    display: flex;
+    align-items: center;
+    width: 25vw;
+    background-color: var(--color-background);
+    border-radius: 30px;
+    margin-top: 5px;
+}
+
+.searchbar-container:focus-within {
+    border: 1px solid green;
+}
+
+.searchbar-container > img {
+    margin-left: 5px;
+}
+
+.searchbar-container > img {
+    filter: invert(48%) sepia(13%) saturate(3207%) hue-rotate(130deg) brightness(95%) contrast(80%);
+}
+
+.searchbar-form  > input[type=text] {
+    width: 20vw;
+    height: 50px;
+    background-color: var(--color-background);
+    border-radius: 30px;
+    border: 0px;
+    box-sizing: border-box;
+    outline: none;
+    font-size: 16px;
+}

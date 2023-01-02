@@ -11,3 +11,5 @@
 <a target="_blank" href="https://icons8.com/icon/36944/ellipsis">Ellipsis</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 
 <a target="_blank" href="https://icons8.com/icon/19161/sort-down">Sort Down</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+
+<a target="_blank" href="https://icons8.com/icon/59878/search">Search</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
