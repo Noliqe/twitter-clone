@@ -7,7 +7,6 @@ const signUserIn = (email, password) => {
       // Signed in 
       const user = userCredential.user;
       // ...
-      console.log(auth.currentuser);
     })
     .catch((error) => {
       const errorCode = error.code;

@@ -3,11 +3,23 @@ import { Link } from 'react-router-dom';
 import getProfilePicUrl from './functions/profilePicture';
 import checkLoggedIn from './functions/checkLoggedIn';
 import Searchbar from './searchbar';
+import { auth } from '../config/firebase-config';
+import { onAuthStateChanged } from "firebase/auth";
 
-const Sidebar = (props) => {
+const Sidebar = () => {
+
+    const checkForUser = () => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                return true;
+            } else {
+                return false;
+            }
+          });
+    };
 
     const handleContent = () => {
-        if (!checkLoggedIn) {
+        if (checkForUser()) {
             return (
                 <div className='sidebar-login'>
                     <h2>New to Gorillia?</h2>
@@ -24,7 +36,9 @@ const Sidebar = (props) => {
                         <h4>People on Gorillia are the first to know.</h4>
                         </div>
                     <div className='footer-buttons'>
+                        <Link to='/login'>
                         <button className='footer-login-btn'>Log in</button>
+                        </Link>
                         <Link to='/signup'>
                         <button className='footer-signup-btn'>Sign up</button>
                         </Link>

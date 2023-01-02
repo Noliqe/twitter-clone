@@ -7,6 +7,7 @@ import Sidebar from './Sidebar';
 import SignUp from './SignUp';
 import Logout from './Logout';
 import checkLoggedIn from './functions/checkLoggedIn';
+import Login from './Login';
 
 function App() {
 
@@ -15,11 +16,14 @@ function App() {
   }, []);
 
 
+
+
   return (
     <div className='App'>
     <BrowserRouter>
     <Routes>
     <Route path="/" element={<><Header /><Content/><Sidebar/></>} />
+    <Route path="/login" element={<Login/>} />
     <Route path="/signup" element={<SignUp/>} />
     <Route path="/logout" element={<Logout/>} />
     </Routes>

@@ -9,20 +9,33 @@ import ArrowDown from '../assets/icons8-sort-down-48.png';
 import React, { useState, useEffect } from 'react';
 import getProfilePicUrl from '../components/functions/profilePicture';
 import checkLoggedIn from './functions/checkLoggedIn';
+import { auth } from '../config/firebase-config';
+import { onAuthStateChanged } from "firebase/auth";
 
 const Header = (props) => {
     const [display, setDisplay] = useState('none');
     const [popUpDisplay, setPopUpDisplay] = useState('none');
 
     useEffect(() => {
-        if (checkLoggedIn) {
+        // console.log(auth.currentUser);
+        // if (checkLoggedIn === true) {
+        //     if (display === 'none') {
+        //         setDisplay('flex');
+        //     }
+        // } else if (auth.currentUser !== null) {
+        //     if (display === 'none') {
+        //         setDisplay('flex');
+        //     } 
+        // }
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
             if (display === 'none') {
                 setDisplay('flex');
             }
-        }
+            }
+          });
     }, []);
-
-        
+ 
     const showProfilePopUp = () => {
         if (popUpDisplay === 'none') {
             return setPopUpDisplay('block');
@@ -31,7 +44,7 @@ const Header = (props) => {
     }
 
     const handleRender = () => {
-        if (checkLoggedIn) {
+        if (checkLoggedIn === true || auth.currentUser !== null) {
             return (
                 <div className="header-profile">
                     <div className='profile-popup' style={{ display: popUpDisplay}}>

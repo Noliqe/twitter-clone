@@ -1,21 +1,23 @@
 import '../styles/content.css';
 import checkLoggedIn from './functions/checkLoggedIn';
-import React, { useState, useEffect } from 'react';
 import getProfilePicUrl from './functions/profilePicture';
+import { auth } from '../config/firebase-config';
+import { onAuthStateChanged } from "firebase/auth";
+
 
 const Content = () => {
-    const [display, setDisplay] = useState('none');
 
-    useEffect(() => {
-        if (checkLoggedIn) {
-            if (display === 'none') {
-                setDisplay('flex');
+    const checkForUser = () => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                return true;
+            } else {
+                return false;
             }
-        }
-    }, []);
-
+          });
+    };
     const handleMessage = () => {
-        if (checkLoggedIn) {
+        if (checkForUser() || auth.currentUser !== null) {
             return (
                 <div className='content-message'>
                     <h2>Home</h2>
