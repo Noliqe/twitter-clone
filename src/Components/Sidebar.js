@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Sidebar = (props) => {
 
     const handleContent = () => {
-        if (props.user === null) {
+        if (props.user === undefined) {
             return (
                 <div className='sidebar-login'>
                     <h2>New to Gorillia?</h2>
@@ -14,6 +14,21 @@ const Sidebar = (props) => {
                     <Link to='/signup'>
                     <button>Sign up with email</button>
                     </Link>
+                    <div className='footer-login'>
+                    <div className='footer-login-filling'></div>
+                        <div className='footer-login-container'>
+                        <div className='footer-login-text'>
+                        <h3>Don't miss what's happening</h3>
+                        <h4>People on Gorillia are the first to know.</h4>
+                        </div>
+                    <div className='footer-buttons'>
+                        <button className='footer-login-btn'>Log in</button>
+                        <Link to='/signup'>
+                        <button className='footer-signup-btn'>Sign up</button>
+                        </Link>
+                    </div>
+                        </div>
+                    </div>
                 </div>
             )
         }

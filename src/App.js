@@ -5,6 +5,7 @@ import Content from './Components/Content';
 import Header from './Components/Header';
 import Sidebar from './Components/Sidebar';
 import SignUp from './Components/SignUp';
+import Logout from './Components/Logout';
 import { getFirebaseConfig } from './firebase-config.js';
 import { initializeApp } from 'firebase/app';
 import { getAuth, 
@@ -81,6 +82,17 @@ const signUserIn = (email, password) => {
   })
 }
 
+const signUserOut = () => {
+  signOut(auth).then(() => {
+    console.log('logged out');
+    // checkLoggedIn();
+    // Sign-out successful.
+  }).catch((error) => {
+    // An error happened.
+    console.log(error);
+  });
+}
+
 const checkLoggedIn = () => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -93,6 +105,7 @@ const checkLoggedIn = () => {
     } else {
       // User is signed out
       // ...
+      console.log('user not logged in');
     }
   });
 }
@@ -117,8 +130,9 @@ const checkLoggedIn = () => {
     <div className='App'>
     <BrowserRouter>
     <Routes>
-    <Route path="/" element={<><Header user={auth.currentuser} profilePicture={getProfilePicUrl}/><Content/><Sidebar user={auth.currentuser} profilePicture={getProfilePicUrl}/></>} />
+    <Route path="/" element={<><Header user={auth.currentuser} profilePicture={getProfilePicUrl} /><Content/><Sidebar user={auth.currentuser} profilePicture={getProfilePicUrl}/></>} />
     <Route path="/signup" element={<SignUp createAcc={getLoginForm}/>} />
+    <Route path="/logout" element={<Logout signout={signUserOut}/>} />
     </Routes>
     </BrowserRouter>
     </div>

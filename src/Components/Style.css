@@ -57,6 +57,7 @@
     border-radius: 25px;
     align-items: center;
     max-width: 250px;
+    min-width: 200px;
 }
 
 .header-user > img {
@@ -87,6 +88,48 @@
     padding: 0;
     margin-top: 6px;
     margin-bottom: 6px;
+}
+
+.profile-popup {
+    position: fixed;
+    height: 80px;
+    width: 250px;
+    background-color: white;
+    bottom: 100px;
+    left: 5vw;
+    border-radius: 15px;
+}
+
+.profile-popup > img {
+    position: fixed;
+    bottom: 70px;
+    left: 175px;
+}
+
+.seperator {
+    border-bottom: 1px solid rgb(189, 188, 188);
+    margin-top: 10px;
+}
+
+.profile-logout {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin-top: 10px;
+    padding: 5px 0px;
+    padding-left: 5px;
+    height: 30px;
+    width: 245px;
+}
+
+.profile-logout > a {
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+}
+
+.profile-logout:hover {
+    background-color: rgba(226, 226, 226, 0.671);
 }
 
 /* Content */
@@ -171,6 +214,42 @@
     background-repeat: no-repeat;
 }
 
+.footer-login {
+    position: fixed;
+    display: flex;
+    justify-content: left;
+    bottom: 0px;
+    left: 0px;
+    width: 100vw;
+    background-color: red;
+    color: white;
+}
+
+.footer-login-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 70vw;
+}
+
+.footer-login-filling {
+    width: 25vw;
+}
+
+.footer-login-btn {
+    width: 100px;
+    height: 40px;
+    border-radius: 15px;
+    margin-right: 10px;  
+}
+
+.footer-signup-btn {
+    width: 100px;
+    height: 40px;
+    border-radius: 15px;
+    margin-right: 10px;  
+}
+
 /* signup */
 
 .signup {
@@ -179,4 +258,27 @@
     background-color: antiquewhite;
     width: 100vw;
     height: 100vh;
+}
+
+.logout {
+    width: 100vw;
+    height: 100vh;
+    background-color: wheat;
+}
+
+.logout-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 300px;
+    background-color: rgb(206, 203, 203);
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    color: rgb(31, 31, 31);
+    padding: 32px;
 }
