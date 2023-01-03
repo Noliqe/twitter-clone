@@ -8,33 +8,21 @@ import Dots from '../assets/icons8-ellipsis-50.png';
 import ArrowDown from '../assets/icons8-sort-down-48.png';
 import React, { useState, useEffect } from 'react';
 import getProfilePicUrl from '../components/functions/profilePicture';
-import checkLoggedIn from './functions/checkLoggedIn';
-import { auth } from '../config/firebase-config';
-import { onAuthStateChanged } from "firebase/auth";
 
 const Header = (props) => {
     const [display, setDisplay] = useState('none');
     const [popUpDisplay, setPopUpDisplay] = useState('none');
 
     useEffect(() => {
-        // console.log(auth.currentUser);
-        // if (checkLoggedIn === true) {
-        //     if (display === 'none') {
-        //         setDisplay('flex');
-        //     }
-        // } else if (auth.currentUser !== null) {
-        //     if (display === 'none') {
-        //         setDisplay('flex');
-        //     } 
-        // }
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
+        if (props.loggedIn) {
             if (display === 'none') {
-                setDisplay('flex');
+                return setDisplay('flex');
             }
-            }
-          });
-    }, []);
+        }
+        if (display === 'flex') {
+            return setDisplay('none');
+        }
+    }, [props.loggedIn]);
  
     const showProfilePopUp = () => {
         if (popUpDisplay === 'none') {
@@ -44,7 +32,7 @@ const Header = (props) => {
     }
 
     const handleRender = () => {
-        if (checkLoggedIn === true || auth.currentUser !== null) {
+        if (props.loggedIn) {
             return (
                 <div className="header-profile">
                     <div className='profile-popup' style={{ display: popUpDisplay}}>
@@ -87,11 +75,8 @@ return (
             <p>Explore</p>
         </li>
         <li style={{ display: display}}>
-        {/* Should be username link */}
-            {/* <Link to={props.user}> */}
                 <img src={ProfileIcon} alt='Profile'></img>
                 <p>Profile</p>
-            {/* </Link> */}
         </li>
         <button>Growl</button>
     </ul>

@@ -1,25 +1,14 @@
 import '../styles/sidebar.css';
 import { Link } from 'react-router-dom';
 import getProfilePicUrl from './functions/profilePicture';
-import checkLoggedIn from './functions/checkLoggedIn';
 import Searchbar from './searchbar';
-import { auth } from '../config/firebase-config';
-import { onAuthStateChanged } from "firebase/auth";
 
-const Sidebar = () => {
 
-    const checkForUser = () => {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                return true;
-            } else {
-                return false;
-            }
-          });
-    };
+const Sidebar = (props) => {
+
 
     const handleContent = () => {
-        if (checkForUser()) {
+        if (!props.loggedIn) {
             return (
                 <div className='sidebar-login'>
                     <h2>New to Gorillia?</h2>

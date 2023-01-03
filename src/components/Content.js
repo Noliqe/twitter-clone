@@ -1,23 +1,19 @@
 import '../styles/content.css';
-import checkLoggedIn from './functions/checkLoggedIn';
 import getProfilePicUrl from './functions/profilePicture';
-import { auth } from '../config/firebase-config';
-import { onAuthStateChanged } from "firebase/auth";
+import SaveMessage from './functions/saveMessage';
 
 
-const Content = () => {
+const Content = (props) => {
 
-    const checkForUser = () => {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                return true;
-            } else {
-                return false;
-            }
-          });
-    };
+    const handleEvent = (event) => {
+        event.preventDefault()
+        console.log(event.target[0].value);
+        SaveMessage(event.target[0].value);
+        event.target[0].value = '';
+    }
+
     const handleMessage = () => {
-        if (checkForUser() || auth.currentUser !== null) {
+        if (props.loggedIn) {
             return (
                 <div className='content-message'>
                     <h2>Home</h2>
@@ -25,7 +21,7 @@ const Content = () => {
                         <div className='content-profile-picture'>
                             <img src={getProfilePicUrl()} alt='profile'></img>
                         </div>
-                        <form>
+                        <form onSubmit={handleEvent}>
                         <input type='text' className='content-message-input' placeholder="What's happening?"></input>
                         <input type='submit'></input>
                         </form>
@@ -36,7 +32,7 @@ const Content = () => {
     }
 
     return (
-        <div className="Content">
+        <div className="content">
             {handleMessage()}
         </div>
     )

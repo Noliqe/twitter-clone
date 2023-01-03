@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import signUserIn from './functions/signUserin';
 import '../styles/login.css';
 import { auth } from '../config/firebase-config';
-import checkLoggedIn from './functions/checkLoggedIn';
 import { onAuthStateChanged } from "firebase/auth";
 
 const Login = () => {
