@@ -23,3 +23,12 @@
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+.content-messages {
+    height: 200px;
+    background-color: aqua;
+}
+
+.msg {
+    border-bottom: 1px solid #e6ecf0;
+}
