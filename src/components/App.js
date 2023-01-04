@@ -1,5 +1,5 @@
 import '../styles/App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Content from './Content';
 import Header from './Header';
@@ -9,9 +9,13 @@ import Logout from './Logout';
 import Login from './Login';
 import { auth } from '../config/firebase-config';
 import { onAuthStateChanged } from "firebase/auth";
+import getImageStorage from './functions/getImageStorage';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+
+  // A loading image URL.
+let LOADING_IMAGE_URL = 'https://www.google.com/images/spin-32.gif?a';
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
@@ -30,6 +34,10 @@ onAuthStateChanged(auth, (user) => {
     }
   }
 });
+
+useEffect(() => {
+  getImageStorage();
+}, []);
 
   return (
     <div className='App'>

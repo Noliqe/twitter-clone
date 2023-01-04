@@ -1,5 +1,6 @@
 .msg-container {
     display: flex;
+    border-bottom: 1px solid #e6ecf0;
 }
 
 .msg-subcontainer {
@@ -10,6 +11,14 @@
 .msg-subcontainer-top {
     display: flex;
     gap: 5px;
+    padding: 2px;
+    color: grey;
+    font-size: 14px;
+}
+
+.msg-userName {
+    color: black;
+    font-weight: 700;
 }
 
 .msg-picUrl > img {
@@ -22,4 +31,9 @@
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+}
+
+.msg-text {
+    font-size: 14px;
+    padding: 2px;
 }

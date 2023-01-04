@@ -10,7 +10,6 @@ import {
     orderBy,
     limit,
     onSnapshot,
-    doc,
   } from 'firebase/firestore';
 
 
@@ -89,6 +88,13 @@ const Content = (props) => {
                 </div>
             )
         }
+        return (
+            <div className='content-container'>
+            <div className='content-messages'>
+                {handleMessages()}
+            </div>
+        </div>
+        )
     }
 
     return (

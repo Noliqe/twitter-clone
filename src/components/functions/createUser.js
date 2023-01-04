@@ -1,14 +1,20 @@
 import { auth } from '../../config/firebase-config';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import signUserIn from './signUserin.js';
+import uploadUser from './uploadUser';
+import UploadMedia from './uploadMedia';
+import UpdateProfileName from './UpdateProfileName';
 
-const createUser = (email, password) => {
+const createUser = (email, password, image, at, name) => {
     // createUserWithEmailAndPassword(auth, email, password)
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
     // Signed in
     signUserIn(email, password);
-    const user = userCredential.user;
+    // const user = userCredential.user;
+    UploadMedia(image);
+    UpdateProfileName(name)
+    uploadUser(name, at)
     // ...
   })
   .catch((error) => {
