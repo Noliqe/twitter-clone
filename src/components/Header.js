@@ -7,21 +7,58 @@ import ProfileIcon from '../assets/icons8-customer-50.png';
 import Dots from '../assets/icons8-ellipsis-50.png';
 import ArrowDown from '../assets/icons8-sort-down-48.png';
 import React, { useState, useEffect } from 'react';
-import getProfilePicUrl from '../components/functions/profilePicture';
+import { onAuthStateChanged } from "firebase/auth";
+import {
+    getFirestore,
+    collection,
+    query,
+    onSnapshot,
+    where,
+} from 'firebase/firestore';
+import { auth } from '../config/firebase-config';
 
 const Header = (props) => {
     const [display, setDisplay] = useState('none');
     const [popUpDisplay, setPopUpDisplay] = useState('none');
+    const [userAt, setUserAt] = useState('');
+    const [userData, setUserData] = useState({});
+
+    useEffect(() => {
+        if (display === 'flex' && !props.loggedIn) {
+            return setDisplay('none');
+        }
+    }, [props.loggedIn]);
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setUserData({
+                    name: auth.currentUser.displayName,
+                })
+                if (display === 'none') {
+                    return setDisplay('flex');
+                }
+            }
+          });
+    }, []);
 
     useEffect(() => {
         if (props.loggedIn) {
-            if (display === 'none') {
-                return setDisplay('flex');
+            if (userAt === '') {
+                const recentMessagesQuery = query(collection(getFirestore(), 'users'), where("uid", "==", auth.currentUser.uid));
+                // Start listening to the query.
+                onSnapshot(recentMessagesQuery, function(snapshot) {
+                snapshot.docChanges().forEach(function(user) {
+                    setUserAt(user.doc.data().at);
+                });
+                });
+            }
+        } else if (!props.loggedIn) {
+            if (!userAt === '') {
+                setUserAt('');
             }
         }
-        if (display === 'flex') {
-            return setDisplay('none');
-        }
+
     }, [props.loggedIn]);
  
     const showProfilePopUp = () => {
@@ -40,17 +77,17 @@ const Header = (props) => {
                     <img src={ArrowDown} alt='arrow'></img>
                     <div className='profile-logout'>
                     <Link to='/logout'>
-                        <p>Log out @Name</p>
+                        <p>Log out @{userAt}</p>
                     </Link>
                     </div>
                 </div>
                 <button className='header-user' onClick={() => {showProfilePopUp()}}>
                     <div className='header-profile-picture'>
-                    <img src={getProfilePicUrl()} alt='profile'></img>
+                    <img src={props.data.image} alt='profile'></img>
                     </div>
                     <div className='header-userName'>
-                        <p style={{ fontWeight: '700'}}>Name</p>
-                        <p>@Name</p>
+                        <p style={{ fontWeight: '700'}}>{userData.name}</p>
+                        <p>@{userAt}</p>
                     </div>
                     <img src={Dots} alt='dots'></img>
                 </button>

@@ -5,7 +5,7 @@ const UploadMedia = (info) => {
     saveProfileImage(info);
     async function saveProfileImage(file) {
         try {
-            const filePath = `${auth.currentUser.uid}/${file.name}`;
+            const filePath = `profile-pictures/${auth.currentUser.uid}`;
             const newImageRef = ref(storage, filePath);
             uploadBytes(newImageRef, file).then((snapshot) => {
                 console.log('Uploaded a blob or file!');

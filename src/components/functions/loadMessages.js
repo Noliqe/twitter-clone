@@ -6,7 +6,6 @@ import {
     limit,
     onSnapshot,
   } from 'firebase/firestore';
-import displayMessage from './displayMessage';
 
 const LoadMessage = () => {
     // Loads chat messages history and listens for upcoming ones.

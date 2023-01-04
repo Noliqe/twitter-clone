@@ -7,12 +7,13 @@ import Sidebar from './Sidebar';
 import SignUp from './SignUp';
 import Logout from './Logout';
 import Login from './Login';
-import { auth } from '../config/firebase-config';
+import { auth, storage } from '../config/firebase-config';
 import { onAuthStateChanged } from "firebase/auth";
-import getImageStorage from './functions/getImageStorage';
+import getProfilePicUrl from './functions/profilePicture';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [data, setData] = useState('');
 
   // A loading image URL.
 let LOADING_IMAGE_URL = 'https://www.google.com/images/spin-32.gif?a';
@@ -36,14 +37,29 @@ onAuthStateChanged(auth, (user) => {
 });
 
 useEffect(() => {
-  getImageStorage();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // set user image
+				storage
+        .ref(`profile-pictures/${auth.currentUser.uid}`)
+        .getDownloadURL()
+        .then((url) => {
+          console.log("set image!");
+          setData({ image: url});
+        })
+        .catch(() => {
+          console.log("set image again!");
+          setData((u) => ({ ...u, image: getProfilePicUrl() }));
+        });
+    }
+  });
 }, []);
 
   return (
     <div className='App'>
     <BrowserRouter>
     <Routes>
-    <Route path="/" element={<><Header loggedIn={loggedIn}/><Content loggedIn={loggedIn}/><Sidebar loggedIn={loggedIn}/></>} />
+    <Route path="/" element={<><Header loggedIn={loggedIn} data={data}/><Content loggedIn={loggedIn}/><Sidebar loggedIn={loggedIn}/></>} />
     <Route path="/login" element={<Login/>} />
     <Route path="/signup" element={<SignUp/>} />
     <Route path="/logout" element={<Logout/>} />
