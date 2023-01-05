@@ -5,7 +5,7 @@ import {
 } from 'firebase/firestore';
 import { auth } from '../../config/firebase-config';
 
-const uploadUser = (Name, At, date) => {
+const uploadUser = (Name, at, date) => {
 
     // Saves a new user to Cloud Firestore.
 async function uploadInfo() {
@@ -13,7 +13,7 @@ async function uploadInfo() {
     try {
       await addDoc(collection(getFirestore(), 'users'), {
         name: Name,
-        at: At,
+        userAt: at,
         uid: auth.currentUser.uid,
         timestamp: date,
       });

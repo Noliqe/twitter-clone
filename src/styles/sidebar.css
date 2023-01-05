@@ -57,19 +57,25 @@
     text-align: center;
 }
 
-.sidebar-follow > ul {
+.followUser-container {
     display: flex;
-    flex-direction: column;
 }
 
-.sidebar-follow > ul > li {
+.followUser-container> ul {
+    padding: 0px;
+    margin: 0px;
+}
+
+.followUser-container > ul > li {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: flex-start;
     gap: 10px;
+    width: 25vw;
 }
 
-.sidebar-follow > ul > li > img {
+.followUser-container > ul > li > img {
     max-width: 50px;
     height: auto;
     margin: 5px;
