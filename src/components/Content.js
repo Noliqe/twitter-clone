@@ -40,30 +40,34 @@ const Content = (props) => {
 
     const handleEvent = (event) => {
         event.preventDefault()
+        let date = new Date().toLocaleDateString("en-US");
         console.log(event.target[0].value);
-        SaveMessage(event.target[0].value, props.data.at);
+        SaveMessage(event.target[0].value, props.data.at, date);
         event.target[0].value = '';
+        LoadMessage();
     }
 
     const handleMessages = () => {
-        let arr = [];
-        for (let i = 0; i < growls.length; i++) {
-            arr.push(
-                <Message 
-                key={i}
-                id={growls[i].id}
-                timestamp={growls[i].timestamp}
-                name={growls[i].name}
-                text={growls[i].text}
-                at={growls[i].atUser}
-                imagePath={growls[i].uid}/>
+        if (growls !== '') {
+            let arr = [];
+            for (let i = 0; i < growls.length; i++) {
+                arr.push(
+                    <Message 
+                    key={i}
+                    id={growls[i].id}
+                    date={'14 jan'}
+                    name={growls[i].name}
+                    text={growls[i].text}
+                    at={growls[i].atUser}
+                    imagePath={growls[i].uid}/>
+                )
+            }
+            return (
+                <div className='msg'>
+                    {arr}
+                </div>
             )
         }
-        return (
-            <div className='msg'>
-                {arr}
-            </div>
-        )
     }
 
     const handleMessage = () => {

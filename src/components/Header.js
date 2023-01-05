@@ -8,13 +8,6 @@ import Dots from '../assets/icons8-ellipsis-50.png';
 import ArrowDown from '../assets/icons8-sort-down-48.png';
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged } from "firebase/auth";
-import {
-    getFirestore,
-    collection,
-    query,
-    onSnapshot,
-    where,
-} from 'firebase/firestore';
 import { auth } from '../config/firebase-config';
 
 const Header = (props) => {
@@ -31,9 +24,7 @@ const Header = (props) => {
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                setUserData({
-                    name: auth.currentUser.displayName,
-                })
+                setUserData(prev =>({...prev, name: auth.currentUser.displayName}));
                 if (display === 'none') {
                     return setDisplay('flex');
                 }
@@ -57,7 +48,7 @@ const Header = (props) => {
                     <img src={ArrowDown} alt='arrow'></img>
                     <div className='profile-logout'>
                     <Link to='/logout'>
-                        <p>Log out @{props.data.at}</p>
+                        <p>{`Log out @${props.data.at}`}</p>
                     </Link>
                     </div>
                 </div>
@@ -67,7 +58,7 @@ const Header = (props) => {
                     </div>
                     <div className='header-userName'>
                         <p style={{ fontWeight: '700'}}>{userData.name}</p>
-                        <p>@{props.data.at}</p>
+                        <p>{`@${props.data.at}`}</p>
                     </div>
                     <img src={Dots} alt='dots'></img>
                 </button>

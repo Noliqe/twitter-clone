@@ -1,11 +1,9 @@
 import '../styles/message.css'
 import React, { useState, useEffect } from 'react';
-import { storage, auth } from '../config/firebase-config';
+import { storage } from '../config/firebase-config';
 
 const Message = (props) => {
-    const [image, setImage] = useState({});
-    let time = props.timestamp.seconds;
-    let date = new Date(time * 1000).toLocaleDateString("en-US");
+    const [image, setImage] = useState({image: 'https://www.google.com/images/spin-32.gif?a'});
 
     useEffect(() => {
         storage
@@ -28,7 +26,7 @@ const Message = (props) => {
                 <div className='msg-subcontainer-top'>
                     <div className="msg-userName">{props.name}</div>
                     <div className='msg-@'>@{props.at}</div>
-                    <div className='msg-date'>{date}</div>
+                    <div className='msg-date'>{props.date}</div>
                 </div>
                 <div className="msg-text">{props.text}</div>
             </div>

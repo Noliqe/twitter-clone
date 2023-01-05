@@ -16,8 +16,6 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [data, setData] = useState('');
 
-  // A loading image URL.
-let LOADING_IMAGE_URL = 'https://www.google.com/images/spin-32.gif?a';
 
 onAuthStateChanged(auth, (user) => {
   if (user) {

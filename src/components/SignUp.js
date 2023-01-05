@@ -1,12 +1,8 @@
 import createUser from './functions/createUser';
 import '../styles/signup.css';
 import { useNavigate } from 'react-router-dom';
-import UploadMedia from './functions/uploadMedia';
-import { onAuthStateChanged } from "firebase/auth";
-import { auth, db } from '../config/firebase-config';
-import UpdateProfileName from './functions/UpdateProfileName';
+import { db } from '../config/firebase-config';
 import React, { useState, useEffect } from 'react';
-import uploadUser from './functions/uploadUser';
 
 const Signup = (props) => {
     const [usersAt, setUsersAt] = useState([]);
@@ -28,7 +24,8 @@ const Signup = (props) => {
         event.preventDefault()
         // if 'at doesnt exist proceed
         if (!usersAt.includes(event.target[1].value)) {
-            createUser(event.target[3].value, event.target[4].value, event.target[0].files[0], event.target[1].value, event.target[2].value);
+            let date = new Date().toLocaleDateString("en-US");
+            createUser(event.target[3].value, event.target[4].value, event.target[0].files[0], event.target[1].value, event.target[2].value, date);
             navigate('/');  
         }
         event.target[0].value = ''; 

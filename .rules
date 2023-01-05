@@ -16,5 +16,15 @@ service cloud.firestore {
                       && request.resource.data.imageUrl.matches('https?://.*'));
       allow delete: if false;
     }
+        // users:
+    //   - Anyone can read.
+    //   - Authenticated users can add and edit messages.
+    //   - Validation: text length below 300 char or that imageUrl is a URL.
+    //   - Deletes are not allowed.
+    match /users/{usersId} {
+      allow read;
+      allow create, update: if request.auth != null;
+      allow delete: if false;
+    }
   }
 }

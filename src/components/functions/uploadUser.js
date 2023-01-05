@@ -2,11 +2,10 @@ import {
     getFirestore,
     collection,
     addDoc,
-    serverTimestamp,
 } from 'firebase/firestore';
 import { auth } from '../../config/firebase-config';
 
-const uploadUser = (Name, At) => {
+const uploadUser = (Name, At, date) => {
 
     // Saves a new user to Cloud Firestore.
 async function uploadInfo() {
@@ -16,7 +15,7 @@ async function uploadInfo() {
         name: Name,
         at: At,
         uid: auth.currentUser.uid,
-        timestamp: serverTimestamp()
+        timestamp: date,
       });
     }
     catch(error) {

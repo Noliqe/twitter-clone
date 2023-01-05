@@ -5,7 +5,7 @@ import uploadUser from './uploadUser';
 import UploadMedia from './uploadMedia';
 import UpdateProfileName from './UpdateProfileName';
 
-const createUser = async (email, password, image, at, name) => {
+const createUser = async (email, password, image, at, name, date) => {
     // createUserWithEmailAndPassword(auth, email, password)
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -14,7 +14,7 @@ const createUser = async (email, password, image, at, name) => {
     // const user = userCredential.user;
     UploadMedia(image);
     UpdateProfileName(name)
-    uploadUser(name, at)
+    uploadUser(name, at, date)
     // ...
   })
   .catch((error) => {
