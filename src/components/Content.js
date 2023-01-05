@@ -1,5 +1,4 @@
 import '../styles/content.css';
-import getProfilePicUrl from './functions/profilePicture';
 import SaveMessage from './functions/saveMessage';
 import Message from './Message';
 import React, { useState, useEffect } from 'react';
@@ -56,7 +55,8 @@ const Content = (props) => {
                 timestamp={growls[i].timestamp}
                 name={growls[i].name}
                 text={growls[i].text}
-                picUrl={growls[i].profilePicUrl}/>
+                at={growls[i].atUser}
+                imagePath={growls[i].uid}/>
             )
         }
         return (
@@ -74,7 +74,7 @@ const Content = (props) => {
                     <h2>Home</h2>
                     <div className='content-message-container'>
                         <div className='content-profile-picture'>
-                            <img src={getProfilePicUrl()} alt='profile'></img>
+                            <img src={props.data.image} alt='profile'></img>
                         </div>
                         <form onSubmit={handleEvent}>
                         <input type='text' className='content-message-input' placeholder="What's happening?"></input>

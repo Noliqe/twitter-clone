@@ -20,7 +20,6 @@ import { auth } from '../config/firebase-config';
 const Header = (props) => {
     const [display, setDisplay] = useState('none');
     const [popUpDisplay, setPopUpDisplay] = useState('none');
-    const [userAt, setUserAt] = useState('');
     const [userData, setUserData] = useState({});
 
     useEffect(() => {
@@ -41,25 +40,6 @@ const Header = (props) => {
             }
           });
     }, []);
-
-    useEffect(() => {
-        if (props.loggedIn) {
-            if (userAt === '') {
-                const recentMessagesQuery = query(collection(getFirestore(), 'users'), where("uid", "==", auth.currentUser.uid));
-                // Start listening to the query.
-                onSnapshot(recentMessagesQuery, function(snapshot) {
-                snapshot.docChanges().forEach(function(user) {
-                    setUserAt(user.doc.data().at);
-                });
-                });
-            }
-        } else if (!props.loggedIn) {
-            if (!userAt === '') {
-                setUserAt('');
-            }
-        }
-
-    }, [props.loggedIn]);
  
     const showProfilePopUp = () => {
         if (popUpDisplay === 'none') {
@@ -77,7 +57,7 @@ const Header = (props) => {
                     <img src={ArrowDown} alt='arrow'></img>
                     <div className='profile-logout'>
                     <Link to='/logout'>
-                        <p>Log out @{userAt}</p>
+                        <p>Log out @{props.data.at}</p>
                     </Link>
                     </div>
                 </div>
@@ -87,7 +67,7 @@ const Header = (props) => {
                     </div>
                     <div className='header-userName'>
                         <p style={{ fontWeight: '700'}}>{userData.name}</p>
-                        <p>@{userAt}</p>
+                        <p>@{props.data.at}</p>
                     </div>
                     <img src={Dots} alt='dots'></img>
                 </button>
