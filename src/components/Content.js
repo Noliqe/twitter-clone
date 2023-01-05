@@ -42,7 +42,7 @@ const Content = (props) => {
     const handleEvent = (event) => {
         event.preventDefault()
         console.log(event.target[0].value);
-        SaveMessage(event.target[0].value);
+        SaveMessage(event.target[0].value, props.data.at);
         event.target[0].value = '';
     }
 

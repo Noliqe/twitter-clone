@@ -3,16 +3,20 @@ import {
     collection,
     addDoc,
     serverTimestamp,
+    query,
+    onSnapshot,
+    where,
   } from 'firebase/firestore';
 import { auth } from '../../config/firebase-config';
 import getProfilePicUrl from './profilePicture';
 
-const SaveMessage = (messageText) => {
+const SaveMessage = (messageText, at) => {
 
 // Returns the signed-in user's display name.
 function getUserName() {
     return auth.currentUser.displayName;
 }
+
 
     // Saves a new message to Cloud Firestore.
 async function saveMessage() {
@@ -20,6 +24,7 @@ async function saveMessage() {
     try {
       await addDoc(collection(getFirestore(), 'messages'), {
         name: getUserName(),
+        at: at,
         text: messageText,
         profilePicUrl: getProfilePicUrl(),
         timestamp: serverTimestamp()

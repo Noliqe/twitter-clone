@@ -5,7 +5,7 @@ import uploadUser from './uploadUser';
 import UploadMedia from './uploadMedia';
 import UpdateProfileName from './UpdateProfileName';
 
-const createUser = (email, password, image, at, name) => {
+const createUser = async (email, password, image, at, name) => {
     // createUserWithEmailAndPassword(auth, email, password)
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {

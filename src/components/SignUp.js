@@ -26,6 +26,7 @@ const Signup = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
+        // if 'at doesnt exist proceed
         if (!usersAt.includes(event.target[1].value)) {
             createUser(event.target[3].value, event.target[4].value, event.target[0].files[0], event.target[1].value, event.target[2].value);
             navigate('/');  
