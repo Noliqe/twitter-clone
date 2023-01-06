@@ -21,7 +21,7 @@
     font-weight: 700;
 }
 
-.msg-picUrl > img {
+.msg-picUrl > a > img {
     max-width: 50px;
     height: auto;
     margin: 5px;

@@ -3,14 +3,16 @@ import {
 } from "react-router-dom";
 import "../styles/profile.css"
 import arrow from '../assets/icons8-left-arrow-32.png';
+import calendar from '../assets/icons8-calendar-32.png';
 import React, { useState, useEffect } from 'react';
-import { db, storage } from "../config/firebase-config";
+import { db, storage, auth } from "../config/firebase-config";
 
-const Profile = () => {
+const Profile = (props) => {
     const [image, setImage] = useState({image: 'https://www.google.com/images/spin-32.gif?a'});
     const [backgroundImage, setBackgroundImage] = useState('');
     const [userId, setUserId] = useState('');
     const [userData, setUserData] = useState({name: '', uid: '', date: ''});
+    const [user, setUser] = useState(false);
     // users At
     let { at } = useParams();
 
@@ -32,19 +34,11 @@ const Profile = () => {
         }
     }, [userData]);
 
-    // useEffect(() => {
-    //     if (userId !== 404 || userId !== '') {
-    //         storage
-    //         .ref(`profile-pictures/${props.imagePath}`)
-    //         .getDownloadURL()
-    //         .then((url) => {
-    //             setImage(prev =>({...prev, image: url}));
-    //         })
-    //         .catch(() => {
-    //           setImage(prev =>({...prev, image: 'https://www.w3schools.com/howto/img_avatar.png'}));
-    //         });
-    //     }
-    // }, [userId]);
+    useEffect(() => {
+        if (at === props.data.userAt) {
+            setUser(true);
+        }
+    }, []);
 
     const getUserData = () => {
         db.collection("users")
@@ -76,6 +70,12 @@ const Profile = () => {
         return (
             <img src={backgroundImage} alt="background"></img>
         )
+    }
+
+    const handleEditRender = () => {
+        if (user) {
+            return <button>Edit profile</button>
+        }
     }
 
     const handleRender = () => {
@@ -111,7 +111,7 @@ const Profile = () => {
             <div className="profile-topbar">
                 <img src={arrow} alt="arrow"></img>
                 <div className="profile-topbar-container">
-                    <p>@{at}</p>
+                    <p style={{fontWeight: '700'}}>{userData.name}</p>
                     <p>0 tweets</p>
                 </div>
             </div>
@@ -121,17 +121,25 @@ const Profile = () => {
             <div className="profile-info">
                 <div className="profile-info-top">
                     <img src={image.image} alt="profile"></img>
-                    <button>Edit profile</button>
+                    {handleEditRender()}
                 </div>
-                <p>{userData.name}</p>
-                <p>{at}</p>
-                <p>Joined {userData.date}</p>
-                <div className="profile-info-followers">
-                    <p>1 Following</p>
-                    <p>0 Followers</p>
+                <p style={{marginBottom: '0px', fontWeight: '700'}}>{userData.name}</p>
+                <p style={{marginTop: '0px', color: 'grey'}}>@{at}</p>
+                <div className="profile-info-joined">
+                    <img src={calendar} alt='calendar'></img>
+                    <p style={{color: 'grey'}}>Joined {userData.date}</p>
                 </div>
-            </div>
-            <div className="profile-links">
+                <div className="profile-info-follow">
+                    <div className="profile-info-following">
+                        <p style={{fontSize: '14px'}}>1</p>
+                        <p style={{color: 'grey', fontSize: '14px'}}>Following</p>
+                    </div>
+                    <div className="profile-info-followers">
+                        <p style={{fontSize: '14px'}}>0</p>
+                        <p style={{color: 'grey', fontSize: '14px'}}>Followers</p>
+                    </div>
+                </div>
+                <div className="profile-links">
             <ul>
                 <li>
                     <p>Tweets</p>
@@ -146,6 +154,7 @@ const Profile = () => {
                     <p>Likes</p>
                 </li>
             </ul>
+            </div>
             </div>
 
         </div>

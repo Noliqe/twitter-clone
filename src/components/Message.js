@@ -1,6 +1,7 @@
 import '../styles/message.css'
 import React, { useState, useEffect } from 'react';
 import { storage } from '../config/firebase-config';
+import { Link } from 'react-router-dom';
 
 const Message = (props) => {
     const [image, setImage] = useState({image: 'https://www.google.com/images/spin-32.gif?a'});
@@ -20,7 +21,9 @@ const Message = (props) => {
     return (
         <div className="msg-container">
             <div className="msg-picUrl">
-                <img src={image.image} alt='profile'></img>
+                <Link to={`/profile/${props.userAt}`}>
+                    <img src={image.image} alt='profile'></img>
+                </Link>
             </div>
             <div className="msg-subcontainer" id={props.id} timestamp={props.timestamp}>
                 <div className='msg-subcontainer-top'>

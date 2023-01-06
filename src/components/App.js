@@ -8,6 +8,7 @@ import SignUp from './SignUp';
 import Logout from './Logout';
 import Login from './Login';
 import Profile from './Profile';
+import Explore from './Explore';
 import { auth, storage } from '../config/firebase-config';
 import { onAuthStateChanged } from "firebase/auth";
 import getProfilePicUrl from './functions/profilePicture';
@@ -16,7 +17,6 @@ import { where, collection, getFirestore, query, onSnapshot } from 'firebase/fir
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [data, setData] = useState('');
-
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
@@ -71,6 +71,7 @@ const getAt = () => {
     <BrowserRouter>
     <Routes>
     <Route path="/" element={<><Header loggedIn={loggedIn} data={data}/><Content loggedIn={loggedIn} data={data}/><Sidebar loggedIn={loggedIn}/></>} />
+    <Route path="/explore" element={<><Header loggedIn={loggedIn} data={data}/><Explore loggedIn={loggedIn} data={data}/><Sidebar loggedIn={loggedIn}/></>} />
     <Route path="/login" element={<Login/>} />
     <Route path="/signup" element={<SignUp/>} />
     <Route path="/logout" element={<Logout/>} />

@@ -1,13 +1,13 @@
-import '../styles/content.css';
+import '../styles/explore.css';
 import SaveMessage from './functions/saveMessage';
 import Message from './Message';
+import Searchbar from './searchbar';
 import React, { useState, useEffect } from 'react';
 import {
     getFirestore,
     collection,
     query,
     orderBy,
-    limit,
     onSnapshot,
   } from 'firebase/firestore';
 
@@ -21,8 +21,7 @@ const Content = (props) => {
 
     const LoadMessage = () => {
         // Loads chat messages history and listens for upcoming ones.
-        // Create the query to load the last 12 messages and listen for new ones.
-        const recentMessagesQuery = query(collection(getFirestore(), 'messages'), orderBy('timestamp', 'desc'), limit(12));
+        const recentMessagesQuery = query(collection(getFirestore(), 'messages'), orderBy('timestamp', 'desc'));
         
         let arr = [];
         // Start listening to the query.
@@ -30,8 +29,6 @@ const Content = (props) => {
           snapshot.docChanges().forEach(function(change) {
               let message = change.doc.data();
                 arr.push({...message, id: change.doc.id})
-            //   arr.push([change.doc.id, message.timestamp, message.name,
-            //                 message.text, message.profilePicUrl, message.imageUrl]);
           });
           setGrowls(arr);
         });
@@ -71,30 +68,9 @@ const Content = (props) => {
     }
 
     const handleMessage = () => {
-        if (props.loggedIn) {
-            return (
-                <div className='content-container'>
-                    <div className='content-message'>
-                    <h2>Home</h2>
-                    <div className='content-message-container'>
-                        <div className='content-profile-picture'>
-                            <img src={props.data.image} alt='profile'></img>
-                        </div>
-                        <form onSubmit={handleEvent}>
-                        <input type='text' className='content-message-input' placeholder="What's happening?"></input>
-                        <input type='submit'></input>
-                        </form>
-                    </div>
-                    </div>
-                    <div className='content-messages'>
-                        {handleMessages()}
-                    </div>
-                </div>
-            )
-        }
         return (
-            <div className='content-container'>
-            <div className='content-messages'>
+            <div className='explore-container'>
+            <div className='explore-messages'>
                 {handleMessages()}
             </div>
         </div>
@@ -102,7 +78,10 @@ const Content = (props) => {
     }
 
     return (
-        <div className="content">
+        <div className="explore">
+            <div className='explore-searchbar'>
+            <Searchbar/>
+            </div>
             {handleMessage()}
         </div>
     )

@@ -39,6 +39,30 @@
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
 }
+
+.header-list > ul > a > li {
+    display: flex;
+    text-decoration: none;
+    color: black;
+    list-style: none;
+}
+
+.header-list > ul > a > li > img {
+    max-width: 40px;
+    height: auto;
+    align-self: center;
+}
+
+.header-list > ul > a {
+    text-decoration: none;
+    color: black;
+}
+
+.header-list > ul > a > li:hover{
+    background-color: aliceblue;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
   
 .header-list > ul > li > img{
     max-width: 40px;

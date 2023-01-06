@@ -78,11 +78,13 @@ return (
             <img src={HomeIcon} alt='Home'></img>
             <p>Home</p>
         </li>
+        <Link to='/explore'>
         <li>
             <img src={hashtagIcon} alt='Explore'></img>
             <p>Explore</p>
         </li>
-        <Link to={`profile/${props.data.userAt}`}>
+        </Link>
+        <Link to={`/profile/${props.data.userAt}`}>
         <li style={{ display: display}}>
                 <img src={ProfileIcon} alt='Profile'></img>
                 <p>Profile</p>
