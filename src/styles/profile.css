@@ -13,7 +13,7 @@
     padding: 0px;
 }
 
-.profile-topbar > img {
+.profile-topbar > a > img {
     max-width: 32px;
     max-height: 32px;
 }

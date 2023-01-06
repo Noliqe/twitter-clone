@@ -7,6 +7,7 @@ import calendar from '../assets/icons8-calendar-32.png';
 import React, { useState, useEffect } from 'react';
 import { db, storage } from "../config/firebase-config";
 import Message from "./Message";
+import { Link } from 'react-router-dom';
 
 const Profile = (props) => {
     const [image, setImage] = useState({image: 'https://www.google.com/images/spin-32.gif?a'});
@@ -169,7 +170,9 @@ const Profile = (props) => {
             return (
                 <div className="profile-container">
             <div className="profile-topbar">
-            <img src={arrow} alt="arrow"></img>
+            <Link to='/'>
+                <img src={arrow} alt="arrow"></img>
+            </Link>
                 <div className="profile-topbar-container">
                     <p>Profile</p>
                 </div>
@@ -195,7 +198,9 @@ const Profile = (props) => {
     return (
         <div className="profile-container">
             <div className="profile-topbar">
+            <Link to='/'>
                 <img src={arrow} alt="arrow"></img>
+            </Link>
                 <div className="profile-topbar-container">
                     <p style={{fontWeight: '700'}}>{userData.name}</p>
                     <p>0 tweets</p>

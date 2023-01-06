@@ -1,6 +1,7 @@
-import '../styles/sidebar.css'
+import '../styles/followUsers.css'
 import React, { useState, useEffect } from 'react';
 import { storage } from '../config/firebase-config';
+import { Link } from 'react-router-dom';
 
 const FollowUsers = (props) => {
     const [image, setImage] = useState({image: 'https://www.google.com/images/spin-32.gif?a'});
@@ -22,9 +23,16 @@ const FollowUsers = (props) => {
         <div className="followUser-container">
                 <ul>
                     <li>
+                    <Link to={`/profile/${props.userAt}`}>
                         <img src={image.image} alt='profile'></img>
-                        <p>{props.userAt}</p>
+                    </Link>
+                    <div className='followUser-sub-container'>
+                        <div className='followUser-sub-container-names'>
+                            <p>{props.name}</p>
+                            <p style={{color: 'grey'}}>@{props.userAt}</p>
+                        </div>
                         <button>Follow</button>
+                    </div>
                     </li>
                 </ul>
         </div>

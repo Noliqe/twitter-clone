@@ -75,17 +75,20 @@ const Sidebar = (props) => {
         first: { 
             ...prev.first,
             userAt: users[usersLengthArr[0]].userAt,
-            uid: users[usersLengthArr[0]].uid
+            uid: users[usersLengthArr[0]].uid,
+            name: users[usersLengthArr[0]].name,
         },
         second: { 
             ...prev.second,
             userAt: users[usersLengthArr[1]].userAt,
-            uid: users[usersLengthArr[1]].uid
+            uid: users[usersLengthArr[1]].uid,
+            name: users[usersLengthArr[1]].name,
         },
         third: { 
             ...prev.third, 
             userAt: users[usersLengthArr[2]].userAt,
-            uid: users[usersLengthArr[2]].uid
+            uid: users[usersLengthArr[2]].uid,
+            name: users[usersLengthArr[2]].name,
         }}));
     }
 
@@ -126,9 +129,9 @@ const Sidebar = (props) => {
                     <Searchbar />
                 <div className='sidebar-follow'>
                     <h2>Who to follow</h2>
-                    <FollowUsers userAt={randomUsers.first.userAt} imagePath={randomUsers.first.uid}/>
-                    <FollowUsers userAt={randomUsers.second.userAt} imagePath={randomUsers.second.uid}/>
-                    <FollowUsers userAt={randomUsers.third.userAt} imagePath={randomUsers.third.uid}/>
+                    <FollowUsers userAt={randomUsers.first.userAt} imagePath={randomUsers.first.uid} name={randomUsers.first.name}/>
+                    <FollowUsers userAt={randomUsers.second.userAt} imagePath={randomUsers.second.uid} name={randomUsers.second.name}/>
+                    <FollowUsers userAt={randomUsers.third.userAt} imagePath={randomUsers.third.uid} name={randomUsers.third.name}/>
                 </div>
                 </div>
             )
