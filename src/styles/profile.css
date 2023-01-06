@@ -1,0 +1,66 @@
+.profile {
+    width: 30vw;
+    border: 1px solid grey;
+}
+
+.profile-topbar {
+    position: static;
+    display: flex;
+    height: 50px;
+    width: 30vw;
+    background-color: blue;
+    margin: 0px;
+    padding: 0px;
+}
+
+.profile-topbar-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-topbar-container > p {
+    margin: 0px;
+    padding: 0px;
+}
+
+.profile-background-img {
+    height: 200px;
+    background-color: gray;
+}
+
+.profile-info {
+    padding: 12px 16px;
+    height: 250px;
+    border-bottom: 2px solid gray;
+}
+
+.profile-info-top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile-info-followers {
+    display: flex;
+    gap: 10px;
+}
+
+.profile-links {
+    padding: 0px 16px;
+}
+
+.profile-links > ul {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    grid-template-rows: 1fr;
+    padding: 0px;
+    text-align: center;
+}
+
+.profile-links > ul > li {
+    list-style: none;
+}
+
+.profile-links > ul > li:hover {
+    background-color: rgb(219, 219, 219);
+    transition: 0.5s;
+}

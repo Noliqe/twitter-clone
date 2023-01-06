@@ -5,7 +5,7 @@ import {
   } from 'firebase/firestore';
 import { auth } from '../../config/firebase-config';
 
-const SaveMessage = (messageText, at, date) => {
+const SaveMessage = (messageText, userAt, date) => {
 
     // Saves a new message to Cloud Firestore.
   async function saveMessage() {
@@ -13,7 +13,7 @@ const SaveMessage = (messageText, at, date) => {
     try {
       await addDoc(collection(getFirestore(), 'messages'), {
         name: auth.currentUser.displayName,
-        atUser: at,
+        userAt: userAt,
         text: messageText,
         uid: auth.currentUser.uid,
         timestamp: date,

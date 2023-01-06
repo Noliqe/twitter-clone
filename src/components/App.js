@@ -7,7 +7,8 @@ import Sidebar from './Sidebar';
 import SignUp from './SignUp';
 import Logout from './Logout';
 import Login from './Login';
-import { auth, storage, db } from '../config/firebase-config';
+import Profile from './Profile';
+import { auth, storage } from '../config/firebase-config';
 import { onAuthStateChanged } from "firebase/auth";
 import getProfilePicUrl from './functions/profilePicture';
 import { where, collection, getFirestore, query, onSnapshot } from 'firebase/firestore';
@@ -60,7 +61,7 @@ const getAt = () => {
   // Start listening to the query.
   onSnapshot(recentMessagesQuery, function(snapshot) {
   snapshot.docChanges().forEach(function(user) {
-    setData(prev =>({...prev, at: user.doc.data().at}));
+    setData(prev =>({...prev, userAt: user.doc.data().userAt}));
   });
   });
 }
@@ -73,6 +74,7 @@ const getAt = () => {
     <Route path="/login" element={<Login/>} />
     <Route path="/signup" element={<SignUp/>} />
     <Route path="/logout" element={<Logout/>} />
+    <Route path="/profile/:userId" element={<><Header loggedIn={loggedIn} data={data}/><Profile loggedIn={loggedIn} data={data}/><Sidebar loggedIn={loggedIn}/></>} />
     </Routes>
     </BrowserRouter>
     </div>

@@ -48,7 +48,7 @@ const Header = (props) => {
                     <img src={ArrowDown} alt='arrow'></img>
                     <div className='profile-logout'>
                     <Link to='/logout'>
-                        <p>{`Log out @${props.data.at}`}</p>
+                        <p>{`Log out @${props.data.userAt}`}</p>
                     </Link>
                     </div>
                 </div>
@@ -58,7 +58,7 @@ const Header = (props) => {
                     </div>
                     <div className='header-userName'>
                         <p style={{ fontWeight: '700'}}>{userData.name}</p>
-                        <p>{`@${props.data.at}`}</p>
+                        <p>{`@${props.data.userAt}`}</p>
                     </div>
                     <img src={Dots} alt='dots'></img>
                 </button>
@@ -82,10 +82,12 @@ return (
             <img src={hashtagIcon} alt='Explore'></img>
             <p>Explore</p>
         </li>
+        <Link to={`profile/${props.data.userAt}`}>
         <li style={{ display: display}}>
                 <img src={ProfileIcon} alt='Profile'></img>
                 <p>Profile</p>
         </li>
+        </Link>
         <button>Growl</button>
     </ul>
     </div>

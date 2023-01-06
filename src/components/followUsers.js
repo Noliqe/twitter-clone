@@ -13,7 +13,7 @@ const FollowUsers = (props) => {
             setImage(prev =>({...prev, image: url}));
         })
         .catch(() => {
-            console.log('no image found, set standard image!')
+            console.log('No image found, set standard image!')
           setImage(prev =>({...prev, image: 'https://www.w3schools.com/howto/img_avatar.png'}));
         });
     }, []);

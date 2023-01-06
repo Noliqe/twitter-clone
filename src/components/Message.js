@@ -25,7 +25,7 @@ const Message = (props) => {
             <div className="msg-subcontainer" id={props.id} timestamp={props.timestamp}>
                 <div className='msg-subcontainer-top'>
                     <div className="msg-userName">{props.name}</div>
-                    <div className='msg-@'>@{props.at}</div>
+                    <div className='msg-@'>@{props.userAt}</div>
                     <div className='msg-date'>{props.date}</div>
                 </div>
                 <div className="msg-text">{props.text}</div>

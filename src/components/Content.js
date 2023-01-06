@@ -42,7 +42,7 @@ const Content = (props) => {
         event.preventDefault()
         let date = new Date().toLocaleDateString("en-US");
         console.log(event.target[0].value);
-        SaveMessage(event.target[0].value, props.data.at, date);
+        SaveMessage(event.target[0].value, props.data.userAt, date);
         event.target[0].value = '';
         LoadMessage();
     }
@@ -58,7 +58,7 @@ const Content = (props) => {
                     date={'14 jan'}
                     name={growls[i].name}
                     text={growls[i].text}
-                    at={growls[i].atUser}
+                    userAt={growls[i].userAt}
                     imagePath={growls[i].uid}/>
                 )
             }
