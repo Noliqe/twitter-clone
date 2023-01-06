@@ -74,7 +74,7 @@ const getAt = () => {
     <Route path="/login" element={<Login/>} />
     <Route path="/signup" element={<SignUp/>} />
     <Route path="/logout" element={<Logout/>} />
-    <Route path="/profile/:userId" element={<><Header loggedIn={loggedIn} data={data}/><Profile loggedIn={loggedIn} data={data}/><Sidebar loggedIn={loggedIn}/></>} />
+    <Route path="/profile/:at" element={<><Header loggedIn={loggedIn} data={data}/><Profile loggedIn={loggedIn} data={data}/><Sidebar loggedIn={loggedIn}/></>} />
     </Routes>
     </BrowserRouter>
     </div>

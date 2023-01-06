@@ -1,16 +1,21 @@
 .profile {
     width: 30vw;
-    border: 1px solid grey;
 }
 
 .profile-topbar {
     position: static;
     display: flex;
+    align-items: center;
+    gap: 10px;
     height: 50px;
     width: 30vw;
-    background-color: blue;
     margin: 0px;
     padding: 0px;
+}
+
+.profile-topbar > img {
+    max-width: 32px;
+    max-height: 32px;
 }
 
 .profile-topbar-container {
@@ -25,7 +30,7 @@
 
 .profile-background-img {
     height: 200px;
-    background-color: gray;
+    background-color: rgb(180, 180, 180);
 }
 
 .profile-info {
@@ -37,6 +42,32 @@
 .profile-info-top {
     display: flex;
     justify-content: space-between;
+}
+
+.profile-info-top > img {
+    width: 25%;
+    min-width: 48px;
+    height: auto;
+    margin: 5px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-top: -15%;
+}
+
+.profile-info-top-svg {
+    margin-top: -15%;
+    width: 25%;
+    min-width: 48px;
+    min-height: 48px;
+    height: 25%;
+}
+
+.profile-doesnt-exist {
+    margin-top: 15%;
 }
 
 .profile-info-followers {
