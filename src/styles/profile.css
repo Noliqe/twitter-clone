@@ -34,8 +34,9 @@
 }
 
 .profile-info {
-    padding: 12px 16px;
-    border-bottom: 2px solid gray;
+    padding: 0px 16px;
+    padding-top: 12px;
+    border-bottom: 1px solid rgb(199, 199, 199);
 }
 
 .profile-info-top {
@@ -116,9 +117,16 @@
 
 .profile-links > ul > li {
     list-style: none;
+    transition: 0.5s;
 }
 
 .profile-links > ul > li:hover {
     background-color: rgb(219, 219, 219);
+    transition: 0.5s;
+}
+
+.profile-links > ul > li > p {
+    font-weight: 700;
+    color: gray;
     transition: 0.5s;
 }

@@ -74,10 +74,12 @@ return (
         <Link to='/'>
             <img src={GorillaIcon} style={{ maxWidth: '50px', height: 'auto'}} alt='logo'></img>
         </Link>
+        <Link to='/'>
         <li style={{ display: display}}>
             <img src={HomeIcon} alt='Home'></img>
             <p>Home</p>
         </li>
+        </Link>
         <Link to='/explore'>
         <li>
             <img src={hashtagIcon} alt='Explore'></img>
