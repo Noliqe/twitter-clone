@@ -9,6 +9,8 @@ import { db, storage, dbfirestore } from "../config/firebase-config";
 import Message from "./Message";
 import { Link } from 'react-router-dom';
 import doesNotExist from "./404Profile";
+import follow from "./functions/follow";
+import unFollow from "./functions/unfollow";
 
 const Profile = (props) => {
     const [image, setImage] = useState({image: 'https://www.google.com/images/spin-32.gif?a'});
@@ -23,6 +25,8 @@ const Profile = (props) => {
         third: {li: 'solid 0px lightgreen', p: 'grey'},
         fourth: {li: 'solid 0px lightgreen',p: 'grey'},
     })
+    const [following, setFollowing] = useState(false);
+    const [counter, setCounter] = useState(0);
     // users At
     let { at } = useParams();
 
@@ -31,6 +35,62 @@ const Profile = (props) => {
         getUserGrowls();
     }, []);
 
+    // checks if currentUser follows profile user
+    useEffect(() => {
+        db.collection("users")
+        .where("userAt", "==", props.current.userAt)
+        .get()
+        .then((snapshot) => {
+            if (snapshot.size > 0) {
+                snapshot.forEach((doc) => {
+                    let following = doc.data().following;
+                    if (following.length > 0) {
+                        for (let i = 0; i < following.length; i++) {
+                            if (following[i] === at) {
+                                return setFollowing(true);
+                            }
+                        }
+                    }
+                });
+            } else {
+                console.log('users doesnt exist');
+            }
+        });
+    }, [props.current.userAt]);
+
+    // check again if following on follow/unfollow btn press
+    useEffect(() => {
+        if (counter > 0) {
+            db.collection("users")
+            .where("userAt", "==", props.current.userAt)
+            .get()
+            .then((snapshot) => {
+                if (snapshot.size > 0) {
+                    snapshot.forEach((doc) => {
+                        let followingData = doc.data().following;
+                        if (followingData.length > 0) {
+                            for (let i = 0; i < followingData.length; i++) {
+                                if (followingData[i] === at) {
+                                    return setFollowing(true);
+                                }
+                            }
+                            if (following) {
+                                return setFollowing(false);
+                            }
+                        } else {
+                            if (following) {
+                                return setFollowing(false);
+                            }
+                        }
+                    });
+                } else {
+                    console.log('user doesnt exist!');
+                }
+            });
+        }
+    }, [counter]);
+
+    //load profile image
     useEffect(() => {
         if (userData.uid !== '') {
             storage
@@ -45,20 +105,14 @@ const Profile = (props) => {
         }
     }, [userData]);
 
+    // if user checks his own profile, set true
     useEffect(() => {
-        if (at === props.data.userAt) {
+        if (at === props.current.userAt) {
             setUser(true);
         }
     }, []);
 
-    useEffect(() => {
-        console.log(growls);
-    }, [growls]);
-
-    useEffect(() => {
-        console.log(userData);
-    }, [userData]);
-
+    // get all data from database of profile user and set as object
     const getUserData = () => {
         db.collection("users")
         .where("userAt", "==", at)
@@ -83,40 +137,6 @@ const Profile = (props) => {
         });
     }
 
-    // useEffect(() => {
-    //     if (userData.id !== '') {
-
-    //     }
-    // }, [userData]);
-
-//     useEffect(() => {
-//         db
-//         .collection("users")
-//         .get()
-//         .then((snapshot) => {
-//             if (snapshot.size > 0) {
-//                 snapshot.forEach((doc) => {
-//                     console.log(doc.data().followers)
-//                 })
-//             }
-//         })
-// }, []);
-
-// useEffect(() => {
-//     const usersRef = db.collection('users').doc('uwSJ9FeyTMlN3Ge2nBrE');
-
-// // Atomically add a new region to the "regions" array field.
-// usersRef.update({
-//     following: dbfirestore.FieldValue.arrayUnion('greater_virginia')
-//   });
-
-//         // Atomically remove a region from the "regions" array field.
-//         usersRef.update({
-//             following: dbfirestore.FieldValue.arrayRemove("east_coast")
-//           });
-
-// }, []);
-
 
     const handlebackgroundImage = () => {
         if (backgroundImage === '') {
@@ -133,7 +153,20 @@ const Profile = (props) => {
         if (user) {
             return <button>Edit profile</button>
         }
-        return <button>Follow</button>
+        if (following) {
+            return <button onClick={() => {unFollowUser()}}>Unfollow</button>  
+        }
+        return <button onClick={() => {followUser()}}>Follow</button>
+    }
+
+    const followUser = () => {
+        follow(userData.id, at, props.current.userAt, props.current.id);
+        setCounter(counter + 1);
+    }
+
+    const unFollowUser = () => {
+        unFollow(userData.id, at, props.current.userAt, props.current.id);
+        setCounter(counter + 1);
     }
 
     const getUserGrowls = () => {

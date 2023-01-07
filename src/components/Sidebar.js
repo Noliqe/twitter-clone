@@ -8,7 +8,6 @@ import {
     query,
     onSnapshot,
   } from 'firebase/firestore';
-  import { storage } from '../config/firebase-config';
   import FollowUsers from './followUsers';
 
 
@@ -19,16 +18,19 @@ const Sidebar = (props) => {
             userAt: '@',
             image: 'https://www.google.com/images/spin-32.gif?a',
             uid: '',
+            id: '',
         },
         second: {
             userAt: '@',
             image: 'https://www.google.com/images/spin-32.gif?a',
             uid: '',
+            id: '',
         },
         third: {
             userAt: '@',
             image: 'https://www.google.com/images/spin-32.gif?a',
             uid: '',
+            id: '',
         }
     });
 
@@ -51,7 +53,7 @@ const Sidebar = (props) => {
         onSnapshot(recentMessagesQuery, function(snapshot) {
           snapshot.docChanges().forEach(function(change) {
               let users = change.doc.data();
-                arr.push({...users})
+                arr.push({...users, id: change.doc.id})
           });
           setUsers(arr);
         });
@@ -77,20 +79,25 @@ const Sidebar = (props) => {
             userAt: users[usersLengthArr[0]].userAt,
             uid: users[usersLengthArr[0]].uid,
             name: users[usersLengthArr[0]].name,
+            id: users[usersLengthArr[0]].id,
         },
         second: { 
             ...prev.second,
             userAt: users[usersLengthArr[1]].userAt,
             uid: users[usersLengthArr[1]].uid,
             name: users[usersLengthArr[1]].name,
+            id: users[usersLengthArr[1]].id,
         },
         third: { 
             ...prev.third, 
             userAt: users[usersLengthArr[2]].userAt,
             uid: users[usersLengthArr[2]].uid,
             name: users[usersLengthArr[2]].name,
+            id: users[usersLengthArr[2]].id,
         }}));
     }
+
+
 
 
 
@@ -129,9 +136,12 @@ const Sidebar = (props) => {
                     <Searchbar />
                 <div className='sidebar-follow'>
                     <h2>Who to follow</h2>
-                    <FollowUsers userAt={randomUsers.first.userAt} imagePath={randomUsers.first.uid} name={randomUsers.first.name}/>
-                    <FollowUsers userAt={randomUsers.second.userAt} imagePath={randomUsers.second.uid} name={randomUsers.second.name}/>
-                    <FollowUsers userAt={randomUsers.third.userAt} imagePath={randomUsers.third.uid} name={randomUsers.third.name}/>
+                    <FollowUsers userAt={randomUsers.first.userAt} imagePath={randomUsers.first.uid} 
+                    name={randomUsers.first.name} id={randomUsers.first.id} current={props.data}/>
+                    <FollowUsers userAt={randomUsers.second.userAt} imagePath={randomUsers.second.uid} 
+                    name={randomUsers.second.name} id={randomUsers.second.id} current={props.data}/>
+                    <FollowUsers userAt={randomUsers.third.userAt} imagePath={randomUsers.third.uid} 
+                    name={randomUsers.third.name} id={randomUsers.third.id} current={props.data}/>
                 </div>
                 </div>
             )

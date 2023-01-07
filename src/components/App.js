@@ -61,7 +61,9 @@ const getAt = () => {
   // Start listening to the query.
   onSnapshot(recentMessagesQuery, function(snapshot) {
   snapshot.docChanges().forEach(function(user) {
-    setData(prev =>({...prev, userAt: user.doc.data().userAt}));
+    setData(prev =>({...prev, 
+      userAt: user.doc.data().userAt,
+      id: user.doc.id}));
   });
   });
 }
@@ -70,12 +72,12 @@ const getAt = () => {
     <div className='App'>
     <BrowserRouter>
     <Routes>
-    <Route path="/" element={<><Header loggedIn={loggedIn} data={data}/><Content loggedIn={loggedIn} data={data}/><Sidebar loggedIn={loggedIn}/></>} />
-    <Route path="/explore" element={<><Header loggedIn={loggedIn} data={data}/><Explore loggedIn={loggedIn} data={data}/><Sidebar loggedIn={loggedIn}/></>} />
+    <Route path="/" element={<><Header loggedIn={loggedIn} data={data}/><Content loggedIn={loggedIn} data={data}/><Sidebar loggedIn={loggedIn} data={data}/></>} />
+    <Route path="/explore" element={<><Header loggedIn={loggedIn} data={data}/><Explore loggedIn={loggedIn} data={data}/><Sidebar loggedIn={loggedIn} data={data}/></>} />
     <Route path="/login" element={<Login/>} />
     <Route path="/signup" element={<SignUp/>} />
     <Route path="/logout" element={<Logout/>} />
-    <Route path="/profile/:at" element={<><Header loggedIn={loggedIn} data={data}/><Profile loggedIn={loggedIn} data={data}/><Sidebar loggedIn={loggedIn}/></>} />
+    <Route path="/profile/:at" element={<><Header loggedIn={loggedIn} data={data}/><Profile loggedIn={loggedIn} current={data}/><Sidebar loggedIn={loggedIn} data={data}/></>} />
     </Routes>
     </BrowserRouter>
     </div>
