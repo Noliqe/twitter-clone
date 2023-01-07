@@ -5,15 +5,16 @@ import "../styles/profile.css"
 import arrow from '../assets/icons8-left-arrow-32.png';
 import calendar from '../assets/icons8-calendar-32.png';
 import React, { useState, useEffect } from 'react';
-import { db, storage } from "../config/firebase-config";
+import { db, storage, dbfirestore } from "../config/firebase-config";
 import Message from "./Message";
 import { Link } from 'react-router-dom';
+import doesNotExist from "./404Profile";
 
 const Profile = (props) => {
     const [image, setImage] = useState({image: 'https://www.google.com/images/spin-32.gif?a'});
     const [backgroundImage, setBackgroundImage] = useState('');
     const [userId, setUserId] = useState('');
-    const [userData, setUserData] = useState({name: '', uid: '', date: ''});
+    const [userData, setUserData] = useState({name: '', uid: '', date: '', id: '', following: [], followers: []});
     const [user, setUser] = useState(false);
     const [growls, setGrowls] = useState('');
     const [selected, setSelected] = useState({
@@ -54,6 +55,10 @@ const Profile = (props) => {
         console.log(growls);
     }, [growls]);
 
+    useEffect(() => {
+        console.log(userData);
+    }, [userData]);
+
     const getUserData = () => {
         db.collection("users")
         .where("userAt", "==", at)
@@ -66,7 +71,10 @@ const Profile = (props) => {
                     setUserData(prev =>({...prev, 
                     name: doc.data().name,
                     uid: doc.data().uid,
-                    date: doc.data().timestamp}));
+                    date: doc.data().timestamp,
+                    id: doc.id,
+                    following: doc.data().following,
+                    followers: doc.data().followers}));
                 });
             } else {
                 console.log('users doesnt exist');
@@ -74,6 +82,41 @@ const Profile = (props) => {
             }
         });
     }
+
+    // useEffect(() => {
+    //     if (userData.id !== '') {
+
+    //     }
+    // }, [userData]);
+
+//     useEffect(() => {
+//         db
+//         .collection("users")
+//         .get()
+//         .then((snapshot) => {
+//             if (snapshot.size > 0) {
+//                 snapshot.forEach((doc) => {
+//                     console.log(doc.data().followers)
+//                 })
+//             }
+//         })
+// }, []);
+
+// useEffect(() => {
+//     const usersRef = db.collection('users').doc('uwSJ9FeyTMlN3Ge2nBrE');
+
+// // Atomically add a new region to the "regions" array field.
+// usersRef.update({
+//     following: dbfirestore.FieldValue.arrayUnion('greater_virginia')
+//   });
+
+//         // Atomically remove a region from the "regions" array field.
+//         usersRef.update({
+//             following: dbfirestore.FieldValue.arrayRemove("east_coast")
+//           });
+
+// }, []);
+
 
     const handlebackgroundImage = () => {
         if (backgroundImage === '') {
@@ -90,6 +133,7 @@ const Profile = (props) => {
         if (user) {
             return <button>Edit profile</button>
         }
+        return <button>Follow</button>
     }
 
     const getUserGrowls = () => {
@@ -167,33 +211,7 @@ const Profile = (props) => {
 
     const handleRender = () => {
         if (userId === 404) {
-            return (
-                <div className="profile-container">
-            <div className="profile-topbar">
-            <Link to='/'>
-                <img src={arrow} alt="arrow"></img>
-            </Link>
-                <div className="profile-topbar-container">
-                    <p>Profile</p>
-                </div>
-            </div>
-            <div className="profile-background-img">
-                {handlebackgroundImage()}
-            </div>
-            <div className="profile-info">
-                <div className="profile-info-top-svg">
-                <svg>
-            <circle cx="50" cy="50" r="40" stroke="wheat" strokeWidth="3" fill="grey" />
-            </svg> 
-                </div>
-                <p>{at}</p>
-                <div className="profile-doesnt-exist">
-                    <h1>This account doesn’t exist</h1>
-                    <p>Try searching for another.</p>
-                </div>
-            </div>
-        </div>
-        )
+            return <doesNotExist at={at}/>
     }
     return (
         <div className="profile-container">
@@ -203,7 +221,7 @@ const Profile = (props) => {
             </Link>
                 <div className="profile-topbar-container">
                     <p style={{fontWeight: '700'}}>{userData.name}</p>
-                    <p>0 tweets</p>
+                    <p>{growls.length} tweets</p>
                 </div>
             </div>
             <div className="profile-background-img">
@@ -222,11 +240,11 @@ const Profile = (props) => {
                 </div>
                 <div className="profile-info-follow">
                     <div className="profile-info-following">
-                        <p style={{fontSize: '14px'}}>1</p>
+                        <p style={{fontSize: '14px'}}>{userData.following.length}</p>
                         <p style={{color: 'grey', fontSize: '14px'}}>Following</p>
                     </div>
                     <div className="profile-info-followers">
-                        <p style={{fontSize: '14px'}}>0</p>
+                        <p style={{fontSize: '14px'}}>{userData.followers.length}</p>
                         <p style={{color: 'grey', fontSize: '14px'}}>Followers</p>
                     </div>
                 </div>

@@ -16,6 +16,8 @@ async function uploadInfo() {
         userAt: at,
         uid: auth.currentUser.uid,
         timestamp: date,
+        followers: [],
+        following: [],
       });
     }
     catch(error) {
