@@ -1,14 +1,12 @@
-import {
-    useParams
-} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import "../styles/profile.css"
 import arrow from '../assets/icons8-left-arrow-32.png';
 import calendar from '../assets/icons8-calendar-32.png';
 import React, { useState, useEffect } from 'react';
-import { db, storage, dbfirestore } from "../config/firebase-config";
+import { db, storage } from "../config/firebase-config";
 import Message from "./Message";
 import { Link } from 'react-router-dom';
-import doesNotExist from "./404Profile";
+import DoesNotExist from "./404Profile";
 import follow from "./functions/follow";
 import unFollow from "./functions/unfollow";
 
@@ -37,25 +35,27 @@ const Profile = (props) => {
 
     // checks if currentUser follows profile user
     useEffect(() => {
-        db.collection("users")
-        .where("userAt", "==", props.current.userAt)
-        .get()
-        .then((snapshot) => {
-            if (snapshot.size > 0) {
-                snapshot.forEach((doc) => {
-                    let following = doc.data().following;
-                    if (following.length > 0) {
-                        for (let i = 0; i < following.length; i++) {
-                            if (following[i] === at) {
-                                return setFollowing(true);
+        if (userId !== 404 && userId !== '') {
+            db.collection("users")
+            .where("userAt", "==", props.current.userAt)
+            .get()
+            .then((snapshot) => {
+                if (snapshot.size > 0) {
+                    snapshot.forEach((doc) => {
+                        let following = doc.data().following;
+                        if (following.length > 0) {
+                            for (let i = 0; i < following.length; i++) {
+                                if (following[i] === at) {
+                                    return setFollowing(true);
+                                }
                             }
                         }
-                    }
-                });
-            } else {
-                console.log('users doesnt exist');
-            }
-        });
+                    });
+                } else {
+                    console.log('users doesnt exist');
+                }
+            });
+        }
     }, [props.current.userAt]);
 
     // check again if following on follow/unfollow btn press
@@ -244,7 +244,7 @@ const Profile = (props) => {
 
     const handleRender = () => {
         if (userId === 404) {
-            return <doesNotExist at={at}/>
+            return <DoesNotExist at={at}/>
     }
     return (
         <div className="profile-container">
@@ -272,14 +272,18 @@ const Profile = (props) => {
                     <p style={{color: 'grey'}}>Joined {userData.date}</p>
                 </div>
                 <div className="profile-info-follow">
+                <Link to={`/profile/${at}/following`}>
                     <div className="profile-info-following">
-                        <p style={{fontSize: '14px'}}>{userData.following.length}</p>
+                        <p style={{fontSize: '14px', color: 'black'}}>{userData.following.length}</p>
                         <p style={{color: 'grey', fontSize: '14px'}}>Following</p>
                     </div>
+                    </Link>
+                    <Link to={`/profile/${at}/followers`}>
                     <div className="profile-info-followers">
-                        <p style={{fontSize: '14px'}}>{userData.followers.length}</p>
+                        <p style={{fontSize: '14px', color: 'black'}}>{userData.followers.length}</p>
                         <p style={{color: 'grey', fontSize: '14px'}}>Followers</p>
                     </div>
+                    </Link>
                 </div>
                 <div className="profile-links">
             <ul>

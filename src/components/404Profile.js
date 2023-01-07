@@ -2,7 +2,7 @@ import arrow from '../assets/icons8-left-arrow-32.png';
 import { Link } from 'react-router-dom';
 import "../styles/profile.css"
 
-const doesNotExist = (props) => {
+const DoesNotExist = (props) => {
     return (
         <div className="profile-container">
     <div className="profile-topbar">
@@ -22,7 +22,7 @@ const doesNotExist = (props) => {
     <circle cx="50" cy="50" r="40" stroke="wheat" strokeWidth="3" fill="grey" />
     </svg> 
         </div>
-        <p>{props.at}</p>
+        <p>@{props.at}</p>
         <div className="profile-doesnt-exist">
             <h1>This account doesn’t exist</h1>
             <p>Try searching for another.</p>
@@ -32,4 +32,4 @@ const doesNotExist = (props) => {
 )
 }
 
-export default doesNotExist
+export default DoesNotExist

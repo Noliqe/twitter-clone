@@ -1,0 +1,68 @@
+.following {
+    width: 30vw;
+}
+
+.following-topbar {
+    position: static;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    height: 50px;
+    width: 30vw;
+    margin: 0px;
+    padding: 0px;
+}
+
+.following-topbar > a > img {
+    max-width: 32px;
+    max-height: 32px;
+}
+
+.following-topbar-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.following-topbar-container > p {
+    margin: 0px;
+    padding: 0px;
+}
+
+.following-div-btns {
+    display: flex;
+    margin-top: 20px;
+}
+
+.following-div-btns > a {
+    margin: 0px;
+    padding: 0px;
+    text-decoration: none;
+    color: black;
+}
+
+.following-followers, .following-following {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 15vw;
+    padding-top: 6px;
+    justify-self: center;
+    border-bottom: 1px solid rgb(236, 236, 236);
+}
+
+.following-followers {
+    margin-top: 4px;
+}
+
+.following-followers:hover, .following-following:hover {
+    background-color: rgb(236, 236, 236);
+    transition: 0.5s;
+}
+
+.following-underline {
+    height: 4px;
+    width: 80px;
+    align-self: center;
+    background-color: rgb(29, 155, 240);
+}

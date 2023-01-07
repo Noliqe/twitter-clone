@@ -101,9 +101,17 @@
     gap: 20px;
 }
 
+.profile-info-follow > a {
+    text-decoration: none;
+}
+
 .profile-info-followers, .profile-info-following {
     display: flex;
     gap: 2px;
+}
+
+.profile-info-followers:hover, .profile-info-following:hover {
+    text-decoration: underline 1px black;
 }
 
 .profile-links > ul {

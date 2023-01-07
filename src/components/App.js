@@ -9,6 +9,8 @@ import Logout from './Logout';
 import Login from './Login';
 import Profile from './Profile';
 import Explore from './Explore';
+import Following from './Following';
+import Followers from './Followers';
 import { auth, storage } from '../config/firebase-config';
 import { onAuthStateChanged } from "firebase/auth";
 import getProfilePicUrl from './functions/profilePicture';
@@ -63,7 +65,8 @@ const getAt = () => {
   snapshot.docChanges().forEach(function(user) {
     setData(prev =>({...prev, 
       userAt: user.doc.data().userAt,
-      id: user.doc.id}));
+      id: user.doc.id,
+      name: user.doc.data().name}));
   });
   });
 }
@@ -78,6 +81,8 @@ const getAt = () => {
     <Route path="/signup" element={<SignUp/>} />
     <Route path="/logout" element={<Logout/>} />
     <Route path="/profile/:at" element={<><Header loggedIn={loggedIn} data={data}/><Profile loggedIn={loggedIn} current={data}/><Sidebar loggedIn={loggedIn} data={data}/></>} />
+    <Route path="/profile/:at/following" element={<><Header loggedIn={loggedIn} data={data}/><Following loggedIn={loggedIn} current={data}/><Sidebar loggedIn={loggedIn} data={data}/></>} />
+    <Route path="/profile/:at/followers" element={<><Header loggedIn={loggedIn} data={data}/><Followers loggedIn={loggedIn} current={data}/><Sidebar loggedIn={loggedIn} data={data}/></>} />
     </Routes>
     </BrowserRouter>
     </div>

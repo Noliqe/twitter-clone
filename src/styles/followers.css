@@ -1,0 +1,68 @@
+.followers {
+    width: 30vw;
+}
+
+.followers-topbar {
+    position: static;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    height: 50px;
+    width: 30vw;
+    margin: 0px;
+    padding: 0px;
+}
+
+.followers-topbar > a > img {
+    max-width: 32px;
+    max-height: 32px;
+}
+
+.followers-topbar-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.followers-topbar-container > p {
+    margin: 0px;
+    padding: 0px;
+}
+
+.followers-div-btns {
+    display: flex;
+    margin-top: 20px;
+}
+
+.followers-div-btns > a {
+    margin: 0px;
+    padding: 0px;
+    text-decoration: none;
+    color: black;
+}
+
+.followers-followers, .followers-following {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 15vw;
+    padding-top: 6px;
+    justify-self: center;
+    border-bottom: 1px solid rgb(236, 236, 236);
+}
+
+.followers-following {
+    margin-top: 4px;
+}
+
+.followers-followers:hover, .followers-following:hover {
+    background-color: rgb(236, 236, 236);
+    transition: 0.5s;
+}
+
+.followers-underline {
+    height: 4px;
+    width: 80px;
+    align-self: center;
+    background-color: rgb(29, 155, 240);
+}
