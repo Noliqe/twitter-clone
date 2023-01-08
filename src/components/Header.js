@@ -58,7 +58,7 @@ const Header = (props) => {
                     </div>
                     <div className='header-userName'>
                         <p style={{ fontWeight: '700'}}>{userData.name}</p>
-                        <p>{`@${props.data.userAt}`}</p>
+                        <p style={{ color: 'grey'}}>{`@${props.data.userAt}`}</p>
                     </div>
                     <img src={Dots} alt='dots'></img>
                 </button>

@@ -104,7 +104,7 @@ const FollowUsers = (props) => {
                     </Link>
                     <div className='followUser-sub-container'>
                         <div className='followUser-sub-container-names'>
-                            <p>{props.name}</p>
+                            <p style={{fontWeight: '700'}}>{props.name}</p>
                             <p style={{color: 'grey'}}>@{props.userAt}</p>
                         </div>
                         {handleBtn()}

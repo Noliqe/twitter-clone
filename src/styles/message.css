@@ -1,6 +1,10 @@
 .msg-container {
     display: flex;
-    border-bottom: 1px solid #e6ecf0;
+    border-bottom: 1px solid #e6ecf0;;
+    padding-left: 3px;
+    padding-right: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
 .msg-subcontainer {
@@ -19,6 +23,15 @@
 .msg-userName {
     color: black;
     font-weight: 700;
+    font-size: 15px;
+}
+
+.msg-at {
+    font-size: 15px;
+}
+
+.msg-date {
+    font-size: 15px;
 }
 
 .msg-picUrl > a > img {
@@ -34,6 +47,6 @@
 }
 
 .msg-text {
-    font-size: 14px;
+    font-size: 16px;
     padding: 2px;
 }

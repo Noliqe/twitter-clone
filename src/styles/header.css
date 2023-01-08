@@ -6,7 +6,6 @@
     align-items: flex-end;
     width: 30vw;
     height: 100vh;
-    background-color: wheat;
 }
   
 .header-filling {
@@ -43,8 +42,17 @@
 .header-list > ul > a > li {
     display: flex;
     text-decoration: none;
+    align-items: center;
     color: black;
     list-style: none;
+    padding: 12px 0px;
+    gap: 20px;
+}
+
+.header-list > ul > a > li > p {
+    font-size: 18px;
+    margin: 6px 0px;
+    font-weight: 700;
 }
 
 .header-list > ul > a > li > img {
@@ -79,7 +87,19 @@
     background-color: rgb(57, 231, 57);
     font-size: 18px;
     font-weight: 700;
-    margin-top: 50px;
+    margin-top: 40px;
+}
+
+.header-list > ul > button:hover {
+    width: 180px;
+    height: 40px;
+    border-radius: 30px;
+    border: 0px;
+    color: white;
+    background-color: rgb(14, 233, 14);
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 40px;
 }
 
 .header-user {
@@ -90,6 +110,12 @@
     border-radius: 25px;
     align-items: center;
     width: 250px;
+    background-color: #FFFFFF;
+    border: 0px solid black;
+}
+
+.header-user:hover {
+    background-color: #e7e7e7;
 }
 
 .header-user > img {
@@ -120,16 +146,18 @@
     padding: 0;
     margin-top: 6px;
     margin-bottom: 6px;
+    font-size: 16px;
 }
 
 .profile-popup {
     position: fixed;
     height: 80px;
     width: 250px;
-    background-color: white;
     bottom: 100px;
     margin-right: 10px;
     border-radius: 15px;
+    border: 1px solid grey;
+    box-shadow: 2px 2px 2px grey;
 }
 
 .profile-popup > img {
@@ -159,6 +187,12 @@
     color: black;
     font-weight: 500;
 }
+
+.profile-logout > a > p{
+    font-weight: 700;
+    margin-left: 5px;
+}
+
 
 .profile-logout:hover {
     background-color: rgba(226, 226, 226, 0.671);

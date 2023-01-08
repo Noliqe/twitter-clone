@@ -1,3 +1,18 @@
+@font-face {
+  font-family: Quicksand;
+  src: url(../assets/Quicksand-VariableFont_wght.ttf);
+}
+
+@font-face {
+  font-family: Chirps;
+  src: url('https://fonts.cdnfonts.com/css/chirp-2');
+}
+
 .App {
   display: flex;
+}
+
+body {
+  font-family: 'Chirp', 'Quicksand', sans-serif;
+  background-color: #FFFFFF;
 }

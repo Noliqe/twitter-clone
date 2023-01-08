@@ -30,8 +30,6 @@ const Content = (props) => {
           snapshot.docChanges().forEach(function(change) {
               let message = change.doc.data();
                 arr.push({...message, id: change.doc.id})
-            //   arr.push([change.doc.id, message.timestamp, message.name,
-            //                 message.text, message.profilePicUrl, message.imageUrl]);
           });
           setGrowls(arr);
         });
@@ -55,7 +53,7 @@ const Content = (props) => {
                     <Message 
                     key={i}
                     id={growls[i].id}
-                    date={growls[i].timestamp}
+                    date={growls[i].date}
                     name={growls[i].name}
                     text={growls[i].text}
                     userAt={growls[i].userAt}
@@ -75,14 +73,16 @@ const Content = (props) => {
             return (
                 <div className='content-container'>
                     <div className='content-message'>
-                    <h2>Home</h2>
+                    <p>Home</p>
                     <div className='content-message-container'>
                         <div className='content-profile-picture'>
                             <img src={props.data.image} alt='profile'></img>
                         </div>
                         <form onSubmit={handleEvent}>
                         <input type='text' className='content-message-input' placeholder="What's happening?"></input>
-                        <input type='submit'></input>
+                        <div className='content-form-submit'>
+                            <input type='submit' value='Growl'></input>
+                        </div>
                         </form>
                     </div>
                     </div>

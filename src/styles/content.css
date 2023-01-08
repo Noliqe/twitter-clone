@@ -2,15 +2,60 @@
 
 .content {
     width: 30vw;
-    border: 1px solid grey;
+    border: 1px solid rgb(236, 236, 236);
+}
+
+.content-message > p {
+    margin-left: 10px;
+    font-weight: 900;
+    font-size: 20px;
 }
 
 .content-message-container {
     display: flex;
     flex-direction: row;
     align-items: center;
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid rgb(236, 236, 236);
+    padding-bottom: 20px;
 }
+
+.content-message-container > form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.content-message-container > form > input[type=text]{
+    border: 0px solid black;
+    height: 50px;
+    font-size: 20px;
+}
+
+.content-message-container > form > input[type=text]:focus {
+    outline: none;
+}
+
+.content-form-submit {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.content-form-submit > input[type=submit]{
+    border-radius: 20px;
+    padding: 8px 16px;
+    width: 100px;
+    margin-right: 10px;
+    background-color: rgb(57, 231, 57);
+    border: 1px solid rgb(34, 231, 34);
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.content-form-submit > input[type=submit]:hover{
+    background-color: rgb(14, 233, 14);
+}
+
 
 .content-profile-picture > img {
     max-width: 50px;

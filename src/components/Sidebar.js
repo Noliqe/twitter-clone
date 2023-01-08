@@ -133,7 +133,9 @@ const Sidebar = (props) => {
         } if (randomUsers.first.uid !== '') {
             return (
                 <div className='sidebar-container'>
+                    <div className='sidebar-searchbar'>
                     <Searchbar />
+                    </div>
                 <div className='sidebar-follow'>
                     <h2>Who to follow</h2>
                     <FollowUsers userAt={randomUsers.first.userAt} imagePath={randomUsers.first.uid} 
