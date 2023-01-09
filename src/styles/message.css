@@ -8,6 +8,10 @@
     padding-bottom: 8px;
 }
 
+.msg-container:hover {
+    background-color: rgb(248, 248, 248);
+}
+
 .msg-container2 {
     display: flex;
 }

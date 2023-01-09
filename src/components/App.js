@@ -11,6 +11,7 @@ import Profile from './Profile';
 import Explore from './Explore';
 import Following from './Following';
 import Followers from './Followers';
+import Growl from './Growl';
 import { auth, storage } from '../config/firebase-config';
 import { onAuthStateChanged } from "firebase/auth";
 import getProfilePicUrl from './functions/profilePicture';
@@ -80,6 +81,7 @@ const getAt = () => {
     <Route path="/login" element={<Login/>} />
     <Route path="/signup" element={<SignUp/>} />
     <Route path="/logout" element={<Logout/>} />
+    <Route path="/growl/:growlId" element={<><Header loggedIn={loggedIn} data={data}/><Growl loggedIn={loggedIn} current={data}/><Sidebar loggedIn={loggedIn} data={data}/></>} />
     <Route path="/profile/:at" element={<><Header loggedIn={loggedIn} data={data}/><Profile loggedIn={loggedIn} current={data}/><Sidebar loggedIn={loggedIn} data={data}/></>} />
     <Route path="/profile/:at/following" element={<><Header loggedIn={loggedIn} data={data}/><Following loggedIn={loggedIn} current={data}/><Sidebar loggedIn={loggedIn} data={data}/></>} />
     <Route path="/profile/:at/followers" element={<><Header loggedIn={loggedIn} data={data}/><Followers loggedIn={loggedIn} current={data}/><Sidebar loggedIn={loggedIn} data={data}/></>} />

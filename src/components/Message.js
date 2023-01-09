@@ -5,10 +5,12 @@ import { Link } from 'react-router-dom';
 import speechBubble from '../assets/icons8-speech-bubble-24.png';
 import close from '../assets/icons8-close-24.png';
 import replyMessage from './functions/reply';
+import { useNavigate } from 'react-router-dom';
 
 const Message = (props) => {
     const [image, setImage] = useState({image: 'https://www.google.com/images/spin-32.gif?a'});
     const [display, setDisplay] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         storage
@@ -102,8 +104,12 @@ const Message = (props) => {
         return 0;
     }
 
+    const handleNavigate = () => {
+        navigate(`/growl/${props.id}`);  
+    }
+
     return (
-        <div className="msg-container">
+        <div className="msg-container" onClick={handleNavigate}>
                         <div className='msg-container2'>
             <div className="msg-picUrl">
                 <Link to={`/profile/${props.userAt}`}>
