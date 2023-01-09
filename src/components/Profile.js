@@ -26,6 +26,7 @@ const Profile = (props) => {
     })
     const [following, setFollowing] = useState(false);
     const [counter, setCounter] = useState(0);
+    const [counterHearts, setCounterHearts] = useState(0);
     const [replys, setReplys] = useState('');
 
     // users At
@@ -142,6 +143,36 @@ const Profile = (props) => {
         });
     }
 
+    // run again
+    useEffect(() => {
+        if (counterHearts > 0) {
+            db.collection("messages")
+            .where("userAt", "==", at)
+            .orderBy('timestamp', 'desc')
+            .get()
+            .then((snapshot) => {
+                let arr = [];
+                if (snapshot.size > 0) {
+                    snapshot.forEach((doc) => {
+                        arr.push({
+                            text: doc.data().text,
+                            date: doc.data().date,
+                            replys: doc.data().replys,
+                            id: doc.id,
+                            hearts: doc.data().hearts});
+                    });
+                } else {
+                    console.log('No Growls have been found!');
+                }
+                setGrowls(arr);
+            });
+        }
+    }, [counterHearts]);
+
+    const updateCounterHearts = () => {
+        return setCounterHearts(counterHearts +1);
+    }
+
 
     const handlebackgroundImage = () => {
         if (backgroundImage === '') {
@@ -188,7 +219,7 @@ const Profile = (props) => {
                         text: doc.data().text,
                         date: doc.data().date,
                         replys: doc.data().replys,
-                        id: doc.id});
+                        id: doc.id,});
                 });
             } else {
                 console.log('No Growls have been found!');
@@ -239,6 +270,9 @@ const Profile = (props) => {
                     imagePath={userData.uid}
                     replys={growls[i].replys}
                     current={props.current}
+                    hearts={growls[i].hearts}
+                    loggedIn={props.loggedIn}
+                    counter={updateCounterHearts}
                     />
                 )
             }

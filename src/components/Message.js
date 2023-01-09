@@ -1,15 +1,22 @@
 import '../styles/message.css'
 import React, { useState, useEffect } from 'react';
-import { storage, db } from '../config/firebase-config';
+import { storage, db, auth } from '../config/firebase-config';
 import { Link } from 'react-router-dom';
-import speechBubble from '../assets/icons8-speech-bubble-24.png';
+import speechBubble from '../assets/icons8-speech-24-grey.png';
+import heart from '../assets/icons8-favorite-24.png';
 import close from '../assets/icons8-close-24.png';
 import replyMessage from './functions/reply';
 import { useNavigate } from 'react-router-dom';
+import like from './functions/like';
+import unLike from './functions/unlike';
+import { documentId } from 'firebase/firestore';
 
 const Message = (props) => {
     const [image, setImage] = useState({image: 'https://www.google.com/images/spin-32.gif?a'});
     const [display, setDisplay] = useState(false);
+    const [likes, setLikes] = useState('');
+    const [userLikes, setUserLikes] = useState(false);
+    const [color, setColor] = useState('hue-rotate(0deg)');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -22,13 +29,51 @@ const Message = (props) => {
         .catch(() => {
           setImage(prev =>({...prev, image: 'https://www.w3schools.com/howto/img_avatar.png'}));
         });
+    }, [props.imagePath]);
+
+    useEffect(() => {
+        loadHearts();
     }, []);
 
-    const replyDisplay = () => {
-        if (display) {
-            return setDisplay(false);
+    useEffect(() => {
+        if (userLikes) {
+            return setColor('invert(14%) sepia(100%) saturate(6489%) hue-rotate(6deg) brightness(114%) contrast(127%)');
         }
-        return setDisplay(true);
+        return setColor('');
+    }, [userLikes]);
+
+    const loadHearts = () => {
+        db.collection("messages")
+        .where(documentId(), "==", props.id)
+        .get()
+        .then((snapshot) => {
+            if (snapshot.size > 0) {
+                snapshot.forEach((doc) => {
+                    return setLikes({hearts: doc.data().hearts});
+                });
+            } else {
+                console.log('No Growls have been found!');
+            }
+        });
+    }
+
+    useEffect(() => {
+        if (likes !== '' && likes.hearts !== []) {
+            for (let i = 0; i < likes.hearts.length; i++) {
+                if (likes.hearts[i] === props.current.userAt) {
+                    setUserLikes(true);
+                }
+            }
+        }
+    }, [likes]);
+
+    const replyDisplay = () => {
+        if (auth.currentUser !== null) {
+            if (display) {
+                return setDisplay(false);
+            }
+            return setDisplay(true);
+        }
     }
 
     const handleEvent = (event) => {
@@ -104,13 +149,31 @@ const Message = (props) => {
         return 0;
     }
 
+    const getHeartsLength = () => {
+        if (likes !== '' && likes.heart !== []) {
+            return likes.hearts.length;
+        }
+        return 0;
+    }
+
     const handleNavigate = () => {
         navigate(`/growl/${props.id}`);  
     }
 
+    const handleLikes = () => {
+        if (!userLikes) {
+            like(props.current.userAt, props.id);
+            loadHearts();
+            return setUserLikes(true);
+        }
+        unLike(props.current.userAt, props.id);
+        loadHearts();
+        return setUserLikes(false);
+    }
+
     return (
-        <div className="msg-container" onClick={handleNavigate}>
-                        <div className='msg-container2'>
+        <div className="msg-container">
+                <div className='msg-container2' onClick={handleNavigate}>
             <div className="msg-picUrl">
                 <Link to={`/profile/${props.userAt}`}>
                     <img src={image.image} alt='profile'></img>
@@ -132,6 +195,12 @@ const Message = (props) => {
                     <img src={speechBubble} alt='speech bubble'></img>
                 </div>
                 <p>{getReplysLength()}</p>
+                </div>
+                <div className='msg-heart'>
+                    <div className='msg-heart-container' onClick={() => {handleLikes()}}>
+                        <img src={heart} alt='heart' style={{filter: color}}></img>
+                    </div>
+                    <p>{getHeartsLength()}</p>
                 </div>
             </div>
             {reply()}

@@ -62,7 +62,33 @@
 
 .msg-sub-sub-container {
     display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 35px;
+}
+
+.msg-heart-container {
+    display: flex;
     justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    height: 35px;
+    width: 35px; 
+}
+
+.msg-heart-container:hover {
+    background-color: rgb(236, 236, 236);
+    cursor: pointer;
+}
+
+.msg-heart-container > img:hover {
+    filter: invert(48%) sepia(50%) saturate(3207%) hue-rotate(130deg) brightness(95%) contrast(80%);
+}
+
+.msg-heart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .msg-sub-sub-container-img {

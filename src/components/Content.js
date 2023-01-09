@@ -14,15 +14,24 @@ import {
 
 const Content = (props) => {
     const [growls, setGrowls] = useState('');
+    const [counter, setCounter] = useState(0);
 
     useEffect(() => {
         LoadMessage()
     }, []);
 
+    useEffect(() => {
+        LoadMessage()
+    }, []);
+
+    const updateCounter = () => {
+        return setCounter(counter +1);
+    }
+
     const LoadMessage = () => {
         // Loads chat messages history and listens for upcoming ones.
         // Create the query to load the last 12 messages and listen for new ones.
-        const recentMessagesQuery = query(collection(getFirestore(), 'messages'), orderBy('timestamp', 'desc'), limit(12));
+        const recentMessagesQuery = query(collection(getFirestore(), 'messages'), orderBy('timestamp', 'desc'));
         
         let arr = [];
         // Start listening to the query.
@@ -59,6 +68,9 @@ const Content = (props) => {
                     userAt={growls[i].userAt}
                     imagePath={growls[i].uid}
                     replys={growls[i].replys}
+                    loggedIn={props.LoggedIn}
+                    hearts={growls[i].hearts}
+                    counter={updateCounter}
                     current={props.data}/>
                 )
             }

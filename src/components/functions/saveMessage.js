@@ -20,6 +20,7 @@ const SaveMessage = (messageText, userAt, date) => {
         timestamp: serverTimestamp(),
         date: date,
         replys: [],
+        hearts: [],
       });
     }
     catch(error) {

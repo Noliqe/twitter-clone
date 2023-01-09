@@ -35,8 +35,10 @@ const Sidebar = (props) => {
     });
 
     useEffect(() => {
-        loadUsers()
-    }, []);
+        if (props.data !== undefined) {
+            loadUsers()
+        }
+    }, [props.data]);
 
     useEffect(() => {
         if(users !== '' && randomUsers.first.userAt === '@') {
@@ -53,7 +55,9 @@ const Sidebar = (props) => {
         onSnapshot(recentMessagesQuery, function(snapshot) {
           snapshot.docChanges().forEach(function(change) {
               let users = change.doc.data();
-                arr.push({...users, id: change.doc.id})
+                if (change.doc.data().userAt !== props.data.userAt) {
+                    arr.push({...users, id: change.doc.id})
+                }
           });
           setUsers(arr);
         });

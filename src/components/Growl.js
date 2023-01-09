@@ -12,6 +12,7 @@ const Growl = (props) => {
     const [messageImage, setMessageImage] = useState({image: 'https://www.google.com/images/spin-32.gif?a'});
     const [message, setMessage] = useState('');
     const [replys, setReplys] = useState('');
+    const [counter, setCounter] = useState(0);
     let { growlId } = useParams();
 
     useEffect(() => {
@@ -28,7 +29,8 @@ const Growl = (props) => {
                     id: doc.id,
                     replys: doc.data().replys,
                     userAt: doc.data().userAt,
-                    text: doc.data().text}));
+                    text: doc.data().text,
+                    hearts: doc.data().hearts}));
                 });
             } else {
                 console.log('users doesnt exist');
@@ -38,7 +40,7 @@ const Growl = (props) => {
 
         //load profile image
         useEffect(() => {
-            if (message.uid !== '') {
+            if (message !== '') {
                 storage
                 .ref(`profile-pictures/${message.uid}`)
                 .getDownloadURL()
@@ -76,12 +78,44 @@ const Growl = (props) => {
             });
         }, []);
 
+        useEffect(() => {
+            if (counter > 0) {
+                db.collection("replys")
+                .where("messageId", "==", growlId)
+                .orderBy('timestamp', 'desc')
+                .get()
+                .then((snapshot) => {
+                    let arr = [];
+                    if (snapshot.size > 0) {
+                        snapshot.forEach((doc) => {
+                            arr.push({
+                                name: doc.data().name,
+                                    uid: doc.data().uid,
+                                    date: doc.data().date,
+                                    id: doc.id,
+                                    text: doc.data().text,
+                                    userAt: doc.data().userAt,
+                                    messageId: doc.data().messageId});
+                        });
+                    } else {
+                        console.log('No Growls have been found!');
+                    }
+                    setReplys(arr);
+                });
+            }
+        }, [counter]);
+
 
     const handleEvent = (event) => {
         event.preventDefault()
         let date = new Date().toLocaleDateString("en-US");
         replyMessage(event.target[0].value, props.current.userAt, date, message.id);
         event.target[0].value = '';
+        setCounter(counter + 1);
+    }
+
+    const updatecounter = () => {
+       return setCounter(counter +1);
     }
 
     const handleReply = () => {
@@ -101,7 +135,7 @@ const Growl = (props) => {
     }
 
     const handleMessages = () => {
-        if (replys !== '') {
+        if (replys !== '' && replys.length > 0) {
             let arr = [];
             for (let i = 0; i < replys.length; i++) {
                 arr.push(
@@ -114,6 +148,9 @@ const Growl = (props) => {
                     userAt={replys[i].userAt}
                     imagePath={replys[i].uid}
                     current={props.current}
+                    hearts={replys[i].hearts}
+                    loggedIn={props.LoggedIn}
+                    counter={updatecounter}
                     />
                 )
             }
