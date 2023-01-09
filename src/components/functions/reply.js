@@ -11,6 +11,7 @@ const replyMessage = (messageText, userAt, date, messageId) => {
         uid: auth.currentUser.uid,
         timestamp: serverTimestamp(),
         date: date,
+        messageId: messageId,
     })
     .then(function(docRef) {
         console.log("Document written with ID: ", docRef.id);

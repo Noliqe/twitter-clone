@@ -1,6 +1,6 @@
 import '../styles/message.css'
 import React, { useState, useEffect } from 'react';
-import { storage } from '../config/firebase-config';
+import { storage, db } from '../config/firebase-config';
 import { Link } from 'react-router-dom';
 import speechBubble from '../assets/icons8-speech-bubble-24.png';
 import close from '../assets/icons8-close-24.png';
@@ -95,9 +95,16 @@ const Message = (props) => {
         
     }
 
+    const getReplysLength = () => {
+        if (props.replys !== undefined) {
+            return props.replys.length;
+        }
+        return 0;
+    }
+
     return (
         <div className="msg-container">
-            <div className='msg-container2'>
+                        <div className='msg-container2'>
             <div className="msg-picUrl">
                 <Link to={`/profile/${props.userAt}`}>
                     <img src={image.image} alt='profile'></img>
@@ -114,8 +121,11 @@ const Message = (props) => {
             </div>
         
             <div className='msg-sub-sub-container'>
+                <div className='msg-speech-bubble'>
                 <div className='msg-sub-sub-container-img' onClick={() => {replyDisplay()}}>
                     <img src={speechBubble} alt='speech bubble'></img>
+                </div>
+                <p>{getReplysLength()}</p>
                 </div>
             </div>
             {reply()}

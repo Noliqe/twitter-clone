@@ -1,0 +1,94 @@
+.replyMessages {
+    border-bottom: 1px solid rgb(230, 230, 230);
+}
+
+/* message */
+
+.replyMessages-message {
+    display: flex;
+}
+
+.replyMessages-message-image {
+    padding-top: 6px;
+}
+
+.replyMessages-message-image > img {
+    max-width: 50px;
+    height: auto;
+    margin: 5px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.replyMessages-message-bar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.replyMessages-message-bar {
+    border: 1px solid rgb(230, 230, 230);
+    min-height: 50px;
+}
+
+.replyMessages-message-container {
+    padding: 6px 0px;
+}
+
+.replyMessages-message-container-names {
+    display: flex;
+    gap: 10px;
+    margin-left: 10px;
+}
+
+.replyMessages-message-container-text {
+    margin-left: 10px;
+}
+
+.replyMessages-message-container-text > p {
+    margin: 5px 0px;
+}
+
+/* reply */
+
+.replyMessages-reply {
+    display: flex;
+}
+
+.replyMessages-reply-image {
+    padding-top: 6px;
+}
+
+.replyMessages-reply-image > img {
+    max-width: 50px;
+    height: auto;
+    margin: 5px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.replyMessages-reply-container {
+    padding: 6px 0px;
+}
+
+.replyMessages-reply-container-names {
+    display: flex;
+    gap: 10px;
+    margin-left: 10px;
+}
+
+.replyMessages-reply-container-text {
+    margin-left: 10px;
+}
+
+.replyMessages-reply-container-text > p {
+    margin: 5px 0px;
+}

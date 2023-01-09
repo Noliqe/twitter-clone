@@ -70,6 +70,11 @@
     width: 35px;
 }
 
+.msg-speech-bubble {
+    display: flex;
+    align-items: center;
+}
+
 
 .msg-sub-sub-container-img:hover {
     background-color: rgb(236, 236, 236);

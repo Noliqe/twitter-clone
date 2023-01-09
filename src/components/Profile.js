@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import DoesNotExist from "./404Profile";
 import follow from "./functions/follow";
 import unFollow from "./functions/unfollow";
+import ReplyMessages from "./ReplyMessages";
 
 const Profile = (props) => {
     const [image, setImage] = useState({image: 'https://www.google.com/images/spin-32.gif?a'});
@@ -18,20 +19,24 @@ const Profile = (props) => {
     const [user, setUser] = useState(false);
     const [growls, setGrowls] = useState('');
     const [selected, setSelected] = useState({
-        first: { li: 'solid 4px lightgreen', p: 'lightgreen'},
-        second: { li: 'solid 0px lightgreen', p: 'grey'},
-        third: {li: 'solid 0px lightgreen', p: 'grey'},
-        fourth: {li: 'solid 0px lightgreen',p: 'grey'},
+        first: { li: 'solid 4px lightgreen', p: 'lightgreen', active: true},
+        second: { li: 'solid 0px lightgreen', p: 'grey', active: false},
+        third: {li: 'solid 0px lightgreen', p: 'grey', active: false},
+        fourth: {li: 'solid 0px lightgreen',p: 'grey', active: false},
     })
     const [following, setFollowing] = useState(false);
     const [counter, setCounter] = useState(0);
+    const [replys, setReplys] = useState('');
+
     // users At
     let { at } = useParams();
 
     useEffect(() => {
         getUserData();
         getUserGrowls();
+        getUserReplys();
     }, []);
+
 
     // checks if currentUser follows profile user
     useEffect(() => {
@@ -169,9 +174,11 @@ const Profile = (props) => {
         setCounter(counter + 1);
     }
 
+    // get all messages that user has posted
     const getUserGrowls = () => {
         db.collection("messages")
         .where("userAt", "==", at)
+        .orderBy('timestamp', 'desc')
         .get()
         .then((snapshot) => {
             let arr = [];
@@ -179,7 +186,9 @@ const Profile = (props) => {
                 snapshot.forEach((doc) => {
                     arr.push({
                         text: doc.data().text,
-                        date: doc.data().timestamp});
+                        date: doc.data().date,
+                        replys: doc.data().replys,
+                        id: doc.id});
                 });
             } else {
                 console.log('No Growls have been found!');
@@ -188,18 +197,49 @@ const Profile = (props) => {
         });
     }
 
+    // get all replys that user has posted
+    const getUserReplys = () => {
+        db.collection("replys")
+        .where("userAt", "==", at)
+        .orderBy('timestamp', 'desc')
+        .get()
+        .then((snapshot) => {
+            let arr = [];
+            if (snapshot.size > 0) {
+                snapshot.forEach((doc) => {
+                    arr.push({
+                        name: doc.data().name,
+                            uid: doc.data().uid,
+                            date: doc.data().date,
+                            id: doc.id,
+                            text: doc.data().text,
+                            userAt: doc.data().userAt,
+                            messageId: doc.data().messageId});
+                });
+            } else {
+                console.log('No Growls have been found!');
+            }
+            setReplys(arr);
+        });
+    }
+
+    // create messages
     const handleMessages = () => {
-        if (growls !== '' && userData.name !== '') {
+        if (growls !== '' && userData.name !== '' && selected.first.active) {
             let arr = [];
             for (let i = 0; i < growls.length; i++) {
                 arr.push(
                     <Message 
                     key={i}
+                    id={growls[i].id}
                     date={growls[i].date}
                     name={userData.name}
                     text={growls[i].text}
                     userAt={at}
-                    imagePath={userData.uid}/>
+                    imagePath={userData.uid}
+                    replys={growls[i].replys}
+                    current={props.current}
+                    />
                 )
             }
             return (
@@ -210,34 +250,59 @@ const Profile = (props) => {
         }
     }
 
+    // create replys
+    const handleReplys = () => {
+        if (selected.second.active && replys !== '') {
+            let arr = [];
+            for (let i = 0; i < replys.length; i++) {
+                if (replys.length > 0) {
+                    arr.push(
+                    <ReplyMessages
+                    key={i}
+                    date={replys[i].date}
+                    name={replys[i].name}
+                    text={replys[i].text}
+                    userAt={replys[i].userAt}
+                    imagePath={replys[i].uid}
+                    current={props.current}
+                    messageId={replys[i].messageId}/>
+                    )
+                }
+            }
+            return <div className="replys">
+                {arr}
+            </div>
+        }
+    }
+
     const changeStyle = (item) => {
         if (item === 'first') {
             setSelected({
-                first: { li: 'solid 4px lightgreen', p: 'lightgreen'},
-                second: { li: 'solid 0px lightgreen', p: 'grey'},
-                third: {li: 'solid 0px lightgreen', p: 'grey'},
-                fourth: {li: 'solid 0px lightgreen',p: 'grey'},
+                first: { li: 'solid 4px lightgreen', p: 'lightgreen', active: true},
+                second: { li: 'solid 0px lightgreen', p: 'grey', active: false},
+                third: {li: 'solid 0px lightgreen', p: 'grey', active: false},
+                fourth: {li: 'solid 0px lightgreen',p: 'grey', active: false},
             })
         } else if (item === 'second') {
             setSelected({
-                first: { li: 'solid 0px lightgreen', p: 'grey'},
-                second: { li: 'solid 4px lightgreen', p: 'lightgreen'},
-                third: {li: 'solid 0px lightgreen', p: 'grey'},
-                fourth: {li: 'solid 0px lightgreen',p: 'grey'},
+                first: { li: 'solid 0px lightgreen', p: 'grey', active: false},
+                second: { li: 'solid 4px lightgreen', p: 'lightgreen', active: true},
+                third: {li: 'solid 0px lightgreen', p: 'grey', active: false},
+                fourth: {li: 'solid 0px lightgreen',p: 'grey', active: false},
             })
     } else if (item === 'third') {
         setSelected({
-            first: { li: 'solid 0px lightgreen', p: 'grey'},
-            second: { li: 'solid 0px lightgreen', p: 'grey'},
-            third: {li: 'solid 4px lightgreen', p: 'lightgreen'},
-            fourth: {li: 'solid 0px lightgreen',p: 'grey'},
+            first: { li: 'solid 0px lightgreen', p: 'grey', active: false},
+            second: { li: 'solid 0px lightgreen', p: 'grey', active: false},
+            third: {li: 'solid 4px lightgreen', p: 'lightgreen', active: true},
+            fourth: {li: 'solid 0px lightgreen',p: 'grey', active: false},
         })
     } else if (item === 'fourth') {
             setSelected({
-                first: { li: 'solid 0px lightgreen', p: 'grey'},
-                second: { li: 'solid 0px lightgreen', p: 'grey'},
-                third: {li: 'solid 0px lightgreen', p: 'grey'},
-                fourth: {li: 'solid 4px lightgreen',p: 'lightgreen'},
+                first: { li: 'solid 0px lightgreen', p: 'grey', active: false},
+                second: { li: 'solid 0px lightgreen', p: 'grey', active: false},
+                third: {li: 'solid 0px lightgreen', p: 'grey', active: false},
+                fourth: {li: 'solid 4px lightgreen',p: 'lightgreen', active: true},
             })
     }
 }
@@ -313,6 +378,7 @@ const Profile = (props) => {
         <div className="profile">
             {handleRender()}
             {handleMessages()}
+            {handleReplys()}
         </div>
     );
 }

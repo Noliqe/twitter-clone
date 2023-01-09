@@ -19,6 +19,7 @@ const SaveMessage = (messageText, userAt, date) => {
         uid: auth.currentUser.uid,
         timestamp: serverTimestamp(),
         date: date,
+        replys: [],
       });
     }
     catch(error) {

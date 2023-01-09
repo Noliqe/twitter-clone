@@ -58,6 +58,7 @@ const Content = (props) => {
                     text={growls[i].text}
                     userAt={growls[i].userAt}
                     imagePath={growls[i].uid}
+                    replys={growls[i].replys}
                     current={props.data}/>
                 )
             }
