@@ -1,8 +1,10 @@
 /* Content */
 
 .content {
-    width: 30vw;
+    width: 600px;
     border: 1px solid rgb(236, 236, 236);
+    position: relative;
+    margin-left: 250px;
 }
 
 .content-message > p {

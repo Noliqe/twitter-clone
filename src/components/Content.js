@@ -20,8 +20,10 @@ const Content = (props) => {
     }, []);
 
     useEffect(() => {
-        LoadMessage()
-    }, []);
+        if (counter > 0) {
+            LoadMessage()
+        }
+    }, [counter]);
 
     const updateCounter = () => {
         return setCounter(counter +1);
@@ -71,7 +73,8 @@ const Content = (props) => {
                     replys={growls[i].replys}
                     loggedIn={props.LoggedIn}
                     hearts={growls[i].hearts}
-                    current={props.data}/>
+                    current={props.data}
+                    counter={updateCounter}/>
                 )
             }
             return (

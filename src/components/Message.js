@@ -48,6 +48,8 @@ const Message = (props) => {
                 snapshot.forEach((doc) => {
                     if (doc.data().isRetweet) {
                         setRetweet(prev =>({...prev, boolean: true, name: doc.data().currentUserAt}));
+                    } else {
+                        setRetweet(prev =>({...prev, boolean: false}));
                     }
                 });
             } else {
@@ -222,7 +224,8 @@ const Message = (props) => {
         handleDisplayReGrowl();
         setTimeout(() => {
             loadHeartsAndReplys();
-          }, "1000")
+            props.counter();
+          }, "500")
     }
 
     const handleDisplayReGrowlText = () => {

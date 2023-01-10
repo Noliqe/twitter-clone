@@ -1,5 +1,10 @@
 .following {
-    width: 30vw;
+    margin-left: 250px;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(236, 236, 236);
+    height: 100%;
 }
 
 .following-topbar {
@@ -8,7 +13,6 @@
     align-items: center;
     gap: 20px;
     height: 50px;
-    width: 30vw;
     margin: 0px;
     padding: 0px;
 }
@@ -34,10 +38,12 @@
 }
 
 .following-div-btns > a {
+    display: flex;
     margin: 0px;
     padding: 0px;
     text-decoration: none;
     color: black;
+    flex: 1;
 }
 
 .following-followers, .following-following {
@@ -49,6 +55,7 @@
     padding-top: 6px;
     justify-self: center;
     border-bottom: 1px solid rgb(236, 236, 236);
+    flex: 1;
 }
 
 .following-followers {

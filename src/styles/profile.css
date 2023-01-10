@@ -1,5 +1,6 @@
 .profile {
-    width: 30vw;
+    margin-left: 250px;
+    width: 600px;
     border: 1px solid rgb(230, 230, 230);
 }
 
@@ -9,7 +10,6 @@
     align-items: center;
     gap: 10px;
     height: 50px;
-    width: 30vw;
     margin: 0px;
     padding: 0px;
 }
@@ -34,6 +34,18 @@
     background-color: rgb(180, 180, 180);
 }
 
+.profile-background-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-background-image > img {
+    max-height: 200px;
+    max-width: 600px;
+    object-fit: fill;
+}
+
 .profile-info {
     padding: 0px 16px;
     padding-top: 12px;
@@ -45,7 +57,7 @@
     justify-content: space-between;
 }
 
-.profile-info-top > button {
+.edit-btn > button {
     font-weight: 700;
     border-radius: 20px;
     padding: 0px 16px;
@@ -53,6 +65,63 @@
     border: 1px solid grey;
     height: 40px;
 }
+
+.edit-btn > button:hover {
+    background-color: rgb(228, 227, 227);
+}
+
+
+.edit-btn-popup {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    background-color: #FFFFFF;
+    border-radius: 25px;
+    border: 1px solid rgb(240, 240, 240);
+    box-shadow: rgb(101 119 134 / 20%) 0px 0px 15px, rgb(101 119 134 / 15%) 0px 0px 3px 1px;
+    padding: 10px 16px;
+}
+
+.edit-btn-popup-form-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.edit-btn-popup-form-container > img {
+    height: 24px;
+    width: 24px;
+}
+
+.edit-btn-popup-form-container > img:hover {
+    border-radius: 50px;
+    background-color: rgb(57, 231, 57);;
+}
+
+.edit-btn-popup > form > input[type=submit]{
+    border-radius: 25px;
+    padding: 4px 8px;
+    margin-top: 5px;
+    background-color: rgb(57, 231, 57);
+    border: 1px solid rgb(34, 231, 34);
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.edit-btn-popup > form > input[type=submit]:hover{
+    background-color: rgb(12, 224, 12);
+    border: 1px solid rgb(11, 224, 11);
+}
+
+.edit-btn-popup > form > input[type=file]{
+    padding: 4px 8px;
+    margin-top: 5px;
+    color: rgb(80, 80, 80);
+    font-weight: 700;
+    font-size: 14px;
+}
+
 
 .profile-info-top > button:hover {
     background-color: rgb(233, 233, 233);

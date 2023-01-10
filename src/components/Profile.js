@@ -10,10 +10,12 @@ import DoesNotExist from "./404Profile";
 import follow from "./functions/follow";
 import unFollow from "./functions/unfollow";
 import ReplyMessages from "./ReplyMessages";
+import close from '../assets/icons8-close-24.png';
+import UploadBackgroundImage from "./functions/uploadBackgroundImage";
 
 const Profile = (props) => {
     const [image, setImage] = useState({image: 'https://www.google.com/images/spin-32.gif?a'});
-    const [backgroundImage, setBackgroundImage] = useState('');
+    const [backgroundImage, setBackgroundImage] = useState({image: ''});
     const [userId, setUserId] = useState('');
     const [userData, setUserData] = useState({name: '', uid: '', date: '', id: '', following: [], followers: []});
     const [user, setUser] = useState(false);
@@ -28,6 +30,7 @@ const Profile = (props) => {
     const [counter, setCounter] = useState(0);
     const [counterHearts, setCounterHearts] = useState(0);
     const [replys, setReplys] = useState('');
+    const [displayEdit, setDisplayEdit] = useState('none');
 
     // users At
     let { at } = useParams();
@@ -111,6 +114,21 @@ const Profile = (props) => {
         }
     }, [userData]);
 
+        //load background image
+        useEffect(() => {
+            if (userData.uid !== '') {
+                storage
+                .ref(`background-pictures/${userData.uid}`)
+                .getDownloadURL()
+                .then((url) => {
+                    setBackgroundImage(prev =>({...prev, image: url}));
+                })
+                .catch(() => {
+                    setBackgroundImage(prev =>({...prev, image: ''}));
+                });
+            }
+        }, [userData]);
+
     // if user checks his own profile, set true
     useEffect(() => {
         if (at === props.current.userAt) {
@@ -176,19 +194,50 @@ const Profile = (props) => {
 
 
     const handlebackgroundImage = () => {
-        if (backgroundImage === '') {
+        if (backgroundImage.image === '') {
             return (
                 <div className="profile-background-no-img"></div>
             )
         }
         return (
-            <img src={backgroundImage} alt="background"></img>
+            <div className="profile-background-image">
+                <img src={backgroundImage.image} alt="background"></img>
+            </div>
         )
+    }
+
+    const handleEditPopUp = () => {
+        if (displayEdit === 'block') {
+            setDisplayEdit('none');
+        } else if (displayEdit === 'none') {
+            setDisplayEdit('block');
+        }
+    }
+
+    const uploadBackgroundImg = (event) => {
+        event.preventDefault();
+        UploadBackgroundImage(event.target[0].files[0]);
+        event.target[0].files[0] = '';
+        handleEditPopUp();
     }
 
     const handleEditRender = () => {
         if (user) {
-            return <button>Edit profile</button>
+            return (
+                <div className="edit-btn">
+                    <button onClick={() => {handleEditPopUp()}}>Edit profile</button>
+                    <div className="edit-btn-popup" style={{display: displayEdit}}>
+                        <form onSubmit={uploadBackgroundImg}>
+                        <div className="edit-btn-popup-form-container">
+                        <label htmlFor="file" className='labelSignUp'>Change background Image</label><br></br>
+                        <img src={close} alt='close' onClick={() => {handleEditPopUp()}}></img>
+                        </div>
+                        <input type="file" id="file" name="file" accept="image/*" capture="camera" required></input><br></br>
+                        <input type='submit' value='Upload'></input>
+                            </form>
+                    </div>
+                </div>
+            )
         }
         if (following) {
             return <button onClick={() => {unFollowUser()}}>Unfollow</button>  

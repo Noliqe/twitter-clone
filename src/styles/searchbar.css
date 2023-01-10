@@ -6,7 +6,6 @@ body {
 .searchbar-container {
     display: flex;
     align-items: center;
-    width: 25vw;
     background-color: var(--color-background);
     border-radius: 30px;
     margin-top: 5px;
@@ -26,8 +25,8 @@ body {
 }
 
 .searchbar-form  > input[type=text] {
-    width: 20vw;
     height: 50px;
+    flex: 1;
     background-color: var(--color-background);
     border-radius: 30px;
     border: 0px;
