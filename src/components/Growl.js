@@ -54,8 +54,8 @@ const Growl = (props) => {
         }, [message]);
 
         useEffect(() => {
-            db.collection("replys")
-            .where("messageId", "==", growlId)
+            db.collection("messages")
+            .where("replyId", "==", growlId)
             .orderBy('timestamp', 'desc')
             .get()
             .then((snapshot) => {
@@ -69,7 +69,7 @@ const Growl = (props) => {
                                 id: doc.id,
                                 text: doc.data().text,
                                 userAt: doc.data().userAt,
-                                messageId: doc.data().messageId});
+                                messageId: doc.data().replyId});
                     });
                 } else {
                     console.log('No Growls have been found!');
@@ -80,8 +80,8 @@ const Growl = (props) => {
 
         useEffect(() => {
             if (counter > 0) {
-                db.collection("replys")
-                .where("messageId", "==", growlId)
+                db.collection("messages")
+                .where("replyId", "==", growlId)
                 .orderBy('timestamp', 'desc')
                 .get()
                 .then((snapshot) => {
@@ -95,7 +95,7 @@ const Growl = (props) => {
                                     id: doc.id,
                                     text: doc.data().text,
                                     userAt: doc.data().userAt,
-                                    messageId: doc.data().messageId});
+                                    messageId: doc.data().replyId});
                         });
                     } else {
                         console.log('No Growls have been found!');
@@ -109,7 +109,7 @@ const Growl = (props) => {
     const handleEvent = (event) => {
         event.preventDefault()
         let date = new Date().toLocaleDateString("en-US");
-        replyMessage(event.target[0].value, props.current.userAt, date, message.id);
+        replyMessage(event.target[0].value, props.current.userAt, date, message.id, message.userAt);
         event.target[0].value = '';
         setCounter(counter + 1);
     }

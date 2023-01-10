@@ -7,7 +7,6 @@ import {
     collection,
     query,
     orderBy,
-    limit,
     onSnapshot,
   } from 'firebase/firestore';
 
@@ -38,7 +37,9 @@ const Content = (props) => {
         onSnapshot(recentMessagesQuery, function(snapshot) {
           snapshot.docChanges().forEach(function(change) {
               let message = change.doc.data();
-                arr.push({...message, id: change.doc.id})
+                if (!change.doc.data().isReply) {
+                    arr.push({...message, id: change.doc.id})
+                }
           });
           setGrowls(arr);
         });

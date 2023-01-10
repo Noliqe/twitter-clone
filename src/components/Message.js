@@ -4,6 +4,7 @@ import { storage, db, auth } from '../config/firebase-config';
 import { Link } from 'react-router-dom';
 import speechBubble from '../assets/icons8-speech-24-grey.png';
 import heart from '../assets/icons8-favorite-24.png';
+import redHeart from '../assets/icons8-favorite-24-red.png';
 import close from '../assets/icons8-close-24.png';
 import replyMessage from './functions/reply';
 import { useNavigate } from 'react-router-dom';
@@ -16,7 +17,7 @@ const Message = (props) => {
     const [display, setDisplay] = useState(false);
     const [likes, setLikes] = useState('');
     const [userLikes, setUserLikes] = useState(false);
-    const [color, setColor] = useState('hue-rotate(0deg)');
+    const [heartIMG, setHeartImg] = useState(heart);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -37,9 +38,9 @@ const Message = (props) => {
 
     useEffect(() => {
         if (userLikes) {
-            return setColor('invert(14%) sepia(100%) saturate(6489%) hue-rotate(6deg) brightness(114%) contrast(127%)');
+            return setHeartImg(redHeart);
         }
-        return setColor('');
+        return setHeartImg(heart);
     }, [userLikes]);
 
     const loadHearts = () => {
@@ -80,7 +81,7 @@ const Message = (props) => {
         event.preventDefault()
         let date = new Date().toLocaleDateString("en-US");
         console.log(event.target[0].value);
-        replyMessage(event.target[0].value, props.current.userAt, date, props.id);
+        replyMessage(event.target[0].value, props.current.userAt, date, props.id, props.userAt);
         event.target[0].value = '';
         replyDisplay();
     }
@@ -150,7 +151,7 @@ const Message = (props) => {
     }
 
     const getHeartsLength = () => {
-        if (likes !== '' && likes.heart !== []) {
+        if (likes !== '' && likes.hearts !== []) {
             return likes.hearts.length;
         }
         return 0;
@@ -173,13 +174,13 @@ const Message = (props) => {
 
     return (
         <div className="msg-container">
-                <div className='msg-container2' onClick={handleNavigate}>
+                <div className='msg-container2'>
             <div className="msg-picUrl">
                 <Link to={`/profile/${props.userAt}`}>
                     <img src={image.image} alt='profile'></img>
                 </Link>
             </div>
-            <div className="msg-subcontainer" id={props.id} timestamp={props.timestamp}>
+            <div className="msg-subcontainer" id={props.id} onClick={handleNavigate}>
                 <div className='msg-subcontainer-top'>
                     <div className="msg-userName" >{props.name}</div>
                     <div className='msg-at'>@{props.userAt}</div>
@@ -198,7 +199,7 @@ const Message = (props) => {
                 </div>
                 <div className='msg-heart'>
                     <div className='msg-heart-container' onClick={() => {handleLikes()}}>
-                        <img src={heart} alt='heart' style={{filter: color}}></img>
+                        <img src={heartIMG} alt='heart'></img>
                     </div>
                     <p>{getHeartsLength()}</p>
                 </div>

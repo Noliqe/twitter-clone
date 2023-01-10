@@ -1,17 +1,21 @@
 import { serverTimestamp } from 'firebase/firestore';
 import { auth, db, dbfirestore } from '../../config/firebase-config';
 
-const replyMessage = (messageText, userAt, date, messageId) => {
+const replyMessage = (messageText, userAt, date, messageId, messageUserAt) => {
 
     // Add a new document with a generated id.
-    db.collection("replys").add({
+    db.collection("messages").add({
         name: auth.currentUser.displayName,
         userAt: userAt,
         text: messageText,
         uid: auth.currentUser.uid,
         timestamp: serverTimestamp(),
         date: date,
-        messageId: messageId,
+        replys: [],
+        hearts: [],
+        replyTo: messageUserAt,
+        replyId: messageId,
+        isReply: true,
     })
     .then(function(docRef) {
         console.log("Document written with ID: ", docRef.id);

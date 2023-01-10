@@ -148,6 +148,7 @@ const Profile = (props) => {
         if (counterHearts > 0) {
             db.collection("messages")
             .where("userAt", "==", at)
+            .where("isReply", "==", false)
             .orderBy('timestamp', 'desc')
             .get()
             .then((snapshot) => {
@@ -209,6 +210,7 @@ const Profile = (props) => {
     const getUserGrowls = () => {
         db.collection("messages")
         .where("userAt", "==", at)
+        .where("isReply", "==", false)
         .orderBy('timestamp', 'desc')
         .get()
         .then((snapshot) => {
@@ -230,8 +232,9 @@ const Profile = (props) => {
 
     // get all replys that user has posted
     const getUserReplys = () => {
-        db.collection("replys")
+        db.collection("messages")
         .where("userAt", "==", at)
+        .where("isReply", "==", true)
         .orderBy('timestamp', 'desc')
         .get()
         .then((snapshot) => {
@@ -245,7 +248,7 @@ const Profile = (props) => {
                             id: doc.id,
                             text: doc.data().text,
                             userAt: doc.data().userAt,
-                            messageId: doc.data().messageId});
+                            messageId: doc.data().replyId});
                 });
             } else {
                 console.log('No Growls have been found!');

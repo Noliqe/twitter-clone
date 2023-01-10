@@ -21,6 +21,9 @@ const SaveMessage = (messageText, userAt, date) => {
         date: date,
         replys: [],
         hearts: [],
+        replyTo: '',
+        replyId: '',
+        isReply: false,
       });
     }
     catch(error) {

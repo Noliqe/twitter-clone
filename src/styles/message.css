@@ -21,6 +21,10 @@
     flex-direction: column;
 }
 
+.msg-subcontainer:hover {
+    cursor: pointer;
+}
+
 .msg-subcontainer-top {
     display: flex;
     gap: 5px;
@@ -82,7 +86,7 @@
 }
 
 .msg-heart-container > img:hover {
-    filter: invert(48%) sepia(50%) saturate(3207%) hue-rotate(130deg) brightness(95%) contrast(80%);
+    filter: invert(14%) sepia(100%) saturate(6489%) hue-rotate(6deg) brightness(114%) contrast(127%);
 }
 
 .msg-heart {
