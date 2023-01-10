@@ -1,35 +1,37 @@
 import { serverTimestamp } from 'firebase/firestore';
 import { auth, db, dbfirestore } from '../../config/firebase-config';
 
-const replyMessage = (messageText, userAt, date, messageId, messageUserAt) => {
+const reGrowl = (messageText, userAt, date, messageId, name, uid, currentUserAt) => {
 
     // Add a new document with a generated id.
     db.collection("messages").add({
-        name: auth.currentUser.displayName,
+        name: name,
         userAt: userAt,
         text: messageText,
-        uid: auth.currentUser.uid,
+        uid: uid,
         timestamp: serverTimestamp(),
         date: date,
         replys: [],
         hearts: [],
-        replyTo: messageUserAt,
-        replyId: messageId,
-        isReply: true,
-        isRetweet: false,
+        replyTo: '',
+        replyId: '',
+        isReply: false,
+        isRetweet: true,
         retweets: [],
+        currentUserAt: currentUserAt,
     })
     .then(function(docRef) {
         const usersRef = db.collection('messages').doc(messageId);
 
         // Atomically add a new reply to the messages array field.
         usersRef.update({
-        replys: dbfirestore.FieldValue.arrayUnion(docRef.id)
+            retweets: dbfirestore.FieldValue.arrayUnion(docRef.id)
       });
+      console.log('ReGrowled!');
     })
     .catch(function(error) {
         console.error("Error adding document: ", error);
 });
 }
 
-export default replyMessage
+export default reGrowl

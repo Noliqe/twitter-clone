@@ -71,7 +71,6 @@ const Content = (props) => {
                     replys={growls[i].replys}
                     loggedIn={props.LoggedIn}
                     hearts={growls[i].hearts}
-                    counter={updateCounter}
                     current={props.data}/>
                 )
             }

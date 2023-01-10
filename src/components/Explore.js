@@ -28,7 +28,9 @@ const Content = (props) => {
         onSnapshot(recentMessagesQuery, function(snapshot) {
           snapshot.docChanges().forEach(function(change) {
               let message = change.doc.data();
+              if (!change.doc.data().isReply) {
                 arr.push({...message, id: change.doc.id})
+            }
           });
           setGrowls(arr);
         });
@@ -52,11 +54,15 @@ const Content = (props) => {
                     <Message 
                     key={i}
                     id={growls[i].id}
-                    date={growls[i].timestamp}
+                    date={growls[i].date}
                     name={growls[i].name}
                     text={growls[i].text}
                     userAt={growls[i].userAt}
-                    imagePath={growls[i].uid}/>
+                    imagePath={growls[i].uid}
+                    replys={growls[i].replys}
+                    loggedIn={props.LoggedIn}
+                    hearts={growls[i].hearts}
+                    current={props.data}/>
                 )
             }
             return (

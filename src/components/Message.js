@@ -11,6 +11,8 @@ import { useNavigate } from 'react-router-dom';
 import like from './functions/like';
 import unLike from './functions/unlike';
 import { documentId } from 'firebase/firestore';
+import retweetIcon from '../assets/icons8-retweet-24.png';
+import reGrowl from './functions/reGrowl';
 
 const Message = (props) => {
     const [image, setImage] = useState({image: 'https://www.google.com/images/spin-32.gif?a'});
@@ -18,6 +20,10 @@ const Message = (props) => {
     const [likes, setLikes] = useState('');
     const [userLikes, setUserLikes] = useState(false);
     const [heartIMG, setHeartImg] = useState(heart);
+    const [numReplys, setNumReplys] = useState('');
+    const [numReGrowls, setNumReGrowls] = useState('');
+    const [displayReGrowl, setDisplayReGrowl] = useState('none');
+    const [retweet, setRetweet] = useState({boolean: false, name: ''});
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -32,9 +38,28 @@ const Message = (props) => {
         });
     }, [props.imagePath]);
 
+
     useEffect(() => {
-        loadHearts();
+        db.collection("messages")
+        .where(documentId(), "==", props.id)
+        .get()
+        .then((snapshot) => {
+            if (snapshot.size > 0) {
+                snapshot.forEach((doc) => {
+                    if (doc.data().isRetweet) {
+                        setRetweet(prev =>({...prev, boolean: true, name: doc.data().currentUserAt}));
+                    }
+                });
+            } else {
+                console.log('No Growls have been found!');
+            }
+        });
     }, []);
+
+    useEffect(() => {
+        loadHeartsAndReplys();
+    }, []);
+
 
     useEffect(() => {
         if (userLikes) {
@@ -43,13 +68,15 @@ const Message = (props) => {
         return setHeartImg(heart);
     }, [userLikes]);
 
-    const loadHearts = () => {
+    const loadHeartsAndReplys = () => {
         db.collection("messages")
         .where(documentId(), "==", props.id)
         .get()
         .then((snapshot) => {
             if (snapshot.size > 0) {
                 snapshot.forEach((doc) => {
+                    setNumReGrowls({reGrowls: doc.data().retweets})
+                    setNumReplys({replys: doc.data().replys})
                     return setLikes({hearts: doc.data().hearts});
                 });
             } else {
@@ -84,6 +111,9 @@ const Message = (props) => {
         replyMessage(event.target[0].value, props.current.userAt, date, props.id, props.userAt);
         event.target[0].value = '';
         replyDisplay();
+        setTimeout(() => {
+            loadHeartsAndReplys();
+          }, "1000")
     }
 
     const reply = () => {
@@ -125,7 +155,7 @@ const Message = (props) => {
                         </div>
                         <div className='msg-reply-bottom'>
                             <div className='msg-reply-bottom-image'>
-                            <img src={image.image} alt='profile'></img>
+                            <img src={props.current.image} alt='profile'></img>
                             </div>
                             <div className='msg-reply-bottom-form'>
                             <form onSubmit={handleEvent}>
@@ -144,8 +174,8 @@ const Message = (props) => {
     }
 
     const getReplysLength = () => {
-        if (props.replys !== undefined) {
-            return props.replys.length;
+        if (numReplys !== '' && numReplys !== []) {
+            return numReplys.replys.length;
         }
         return 0;
     }
@@ -157,23 +187,57 @@ const Message = (props) => {
         return 0;
     }
 
+    const getReGrowlLength = () => {
+        if (numReGrowls !== '' && numReGrowls.reGrowls !== []) {
+            return numReGrowls.reGrowls.length;
+        }
+        return 0;
+    }
+
     const handleNavigate = () => {
         navigate(`/growl/${props.id}`);  
+    }
+
+    const handleDisplayReGrowl = () => {
+        if (displayReGrowl === 'block') {
+            setDisplayReGrowl('none');
+        } else if (displayReGrowl === 'none') {
+            setDisplayReGrowl('block');
+        }
     }
 
     const handleLikes = () => {
         if (!userLikes) {
             like(props.current.userAt, props.id);
-            loadHearts();
+            loadHeartsAndReplys();
             return setUserLikes(true);
         }
         unLike(props.current.userAt, props.id);
-        loadHearts();
+        loadHeartsAndReplys();
         return setUserLikes(false);
+    }
+
+    const sentReGrowl = () => {
+        reGrowl(props.text, props.userAt, props.date, props.id, props.name, props.imagePath, props.current.userAt);
+        handleDisplayReGrowl();
+        setTimeout(() => {
+            loadHeartsAndReplys();
+          }, "1000")
+    }
+
+    const handleDisplayReGrowlText = () => {
+        if (retweet.boolean) {
+            return (
+                <div className='msg-reGrowl-text' style={{marginLeft: '10px', }}>
+                <p style={{color: 'grey', fontWeight: '700', fontSize: '13px'}}>{retweet.name} ReGrowled </p>
+            </div>
+            )
+        }
     }
 
     return (
         <div className="msg-container">
+                {handleDisplayReGrowlText()}
                 <div className='msg-container2'>
             <div className="msg-picUrl">
                 <Link to={`/profile/${props.userAt}`}>
@@ -196,6 +260,27 @@ const Message = (props) => {
                     <img src={speechBubble} alt='speech bubble'></img>
                 </div>
                 <p>{getReplysLength()}</p>
+                </div>
+                <div className='msg-reGrowl'>
+                    <div className='msg-reGrowl-container'>
+                    <div className='msg-reGrowl-sub-container' onClick={() => {handleDisplayReGrowl()}}>
+                        <div className='msg-reGrowl-sub-container-img'>
+                            <img src={retweetIcon} alt='reGrowl'></img>
+                        </div>
+                        <p>{getReGrowlLength()}</p>
+                    </div>
+                    <div className='reGrowl' style={{display: displayReGrowl}}>
+                        <div className='reGrowl-container'>
+                            <div className='reGrowl-subcontainer' onClick={() => {sentReGrowl()}}>
+                                <img src={retweetIcon} alt='reGrowl'></img>
+                                <p>Retweet</p>
+                            </div>
+                            <div className='reGrowl-close' onClick={() => {handleDisplayReGrowl()}}>
+                                <img src={close} alt='close' ></img>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
                 </div>
                 <div className='msg-heart'>
                     <div className='msg-heart-container' onClick={() => {handleLikes()}}>

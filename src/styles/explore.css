@@ -1,13 +1,13 @@
 .explore {
     width: 30vw;
-    border: 1px solid grey;
+    border: 1px solid rgb(241, 241, 241);
 }
 
 .explore-searchbar {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid rgb(241, 241, 241);
     padding-bottom: 15px;
     padding-top: 10px;
 }
@@ -16,7 +16,6 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    border-bottom: 1px solid grey;
 }
 
 .explore-profile-picture > img {

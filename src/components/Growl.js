@@ -36,7 +36,7 @@ const Growl = (props) => {
                 console.log('users doesnt exist');
             }
         });
-    }, []);
+    }, [growlId]);
 
         //load profile image
         useEffect(() => {
@@ -76,7 +76,7 @@ const Growl = (props) => {
                 }
                 setReplys(arr);
             });
-        }, []);
+        }, [growlId]);
 
         useEffect(() => {
             if (counter > 0) {

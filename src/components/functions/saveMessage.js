@@ -24,6 +24,8 @@ const SaveMessage = (messageText, userAt, date) => {
         replyTo: '',
         replyId: '',
         isReply: false,
+        isRetweet: false,
+        retweets: [],
       });
     }
     catch(error) {
