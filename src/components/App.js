@@ -12,6 +12,7 @@ import Explore from './Explore';
 import Following from './Following';
 import Followers from './Followers';
 import Growl from './Growl';
+import DeviceContext from "./context/deviceContext";
 import { auth, storage } from '../config/firebase-config';
 import { onAuthStateChanged } from "firebase/auth";
 import getProfilePicUrl from './functions/profilePicture';
@@ -20,6 +21,8 @@ import { where, collection, getFirestore, query, onSnapshot } from 'firebase/fir
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [data, setData] = useState('');
+  const [width, setWidth] = useState('');
+  const [appWidth, setAppWidth] = useState('');
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
@@ -72,10 +75,37 @@ const getAt = () => {
   });
 }
 
+useEffect(() => {
+  const handleResize = () => {
+    const width = window.innerWidth;
+    if (width > 1000) {
+      setWidth("computer");
+    } else if (width > 767) {
+      setWidth("tablet");
+    } else {
+      setWidth("mobile");
+    }
+  };
+
+  handleResize();
+  
+  // on window resize check handleResize
+  window.addEventListener("resize", handleResize);
+}, []);
+
+useEffect(() => {
+  if (width === 'computer') {
+    return setAppWidth('10vw');
+  }
+  if (width === 'tablet') {
+    return setAppWidth('0vw')
+  }
+}, [width]);
+
   return (
-    <div className='App'>
-      <div className='filling'></div>
+    <div className='App' style={{paddingLeft: appWidth}}>
     <BrowserRouter>
+    <DeviceContext.Provider value={{ device: width }}>
     <Routes>
     <Route path="/" element={<><Header loggedIn={loggedIn} data={data}/><Content loggedIn={loggedIn} data={data}/><Sidebar loggedIn={loggedIn} data={data}/></>} />
     <Route path="/explore" element={<><Header loggedIn={loggedIn} data={data}/><Explore loggedIn={loggedIn} data={data}/><Sidebar loggedIn={loggedIn} data={data}/></>} />
@@ -87,6 +117,7 @@ const getAt = () => {
     <Route path="/profile/:at/following" element={<><Header loggedIn={loggedIn} data={data}/><Following loggedIn={loggedIn} current={data}/><Sidebar loggedIn={loggedIn} data={data}/></>} />
     <Route path="/profile/:at/followers" element={<><Header loggedIn={loggedIn} data={data}/><Followers loggedIn={loggedIn} current={data}/><Sidebar loggedIn={loggedIn} data={data}/></>} />
     </Routes>
+    </DeviceContext.Provider>
     </BrowserRouter>
     </div>
   );

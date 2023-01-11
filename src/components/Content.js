@@ -1,7 +1,8 @@
 import '../styles/content.css';
 import SaveMessage from './functions/saveMessage';
 import Message from './Message';
-import React, { useState, useEffect } from 'react';
+import DeviceContext from "./context/deviceContext";
+import React, { useState, useEffect, useContext } from 'react';
 import {
     getFirestore,
     collection,
@@ -14,6 +15,7 @@ import {
 const Content = (props) => {
     const [growls, setGrowls] = useState('');
     const [counter, setCounter] = useState(0);
+    const { device } = useContext(DeviceContext);
 
     useEffect(() => {
         LoadMessage()
@@ -118,8 +120,18 @@ const Content = (props) => {
         )
     }
 
+    const handleContentWidth = () => {
+        if (device === 'computer') {
+            return '250px'
+        } else if (device === 'tablet') {
+            return '210px'
+        } else if (device === 'mobile') {
+            return '110px'
+        }
+    }
+
     return (
-        <div className="content">
+        <div className="content" style={{ marginLeft: handleContentWidth() }}>
             {handleMessage()}
         </div>
     )

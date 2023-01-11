@@ -25,3 +25,5 @@
 <a target="_blank" href="https://icons8.com/icon/85338/favorite">Favorite</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 
 <a target="_blank" href="https://icons8.com/icon/95359/retweet">Retweet</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+
+<a target="_blank" href="https://icons8.com/icon/mbHYPC5X1v5B/write">Write</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>

@@ -4,15 +4,17 @@ import { Link } from 'react-router-dom';
 import '../styles/growl.css';
 import { storage, db } from "../config/firebase-config";
 import replyMessage from "./functions/reply";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { documentId } from "firebase/firestore";
 import Message from "./Message";
+import DeviceContext from "./context/deviceContext";
 
 const Growl = (props) => {
     const [messageImage, setMessageImage] = useState({image: 'https://www.google.com/images/spin-32.gif?a'});
     const [message, setMessage] = useState('');
     const [replys, setReplys] = useState('');
     const [counter, setCounter] = useState(0);
+    const { device } = useContext(DeviceContext);
     let { growlId } = useParams();
 
     useEffect(() => {
@@ -162,8 +164,18 @@ const Growl = (props) => {
         }
     }
 
+    const handleGrowlWidth = () => {
+        if (device === 'computer') {
+            return '250px'
+        } else if (device === 'tablet') {
+            return '210px'
+        } else if (device === 'mobile') {
+            return '110px'
+        }
+    }
+
     return (
-        <div className="growl">
+        <div className="growl" style={{ marginLeft: handleGrowlWidth() }}>
             <div className="growl-topbar">
                 <div className="growl-topbar-image">
                     <Link to='/'>

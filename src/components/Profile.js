@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import "../styles/profile.css"
 import arrow from '../assets/icons8-left-arrow-32.png';
 import calendar from '../assets/icons8-calendar-32.png';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { db, storage } from "../config/firebase-config";
 import Message from "./Message";
 import { Link } from 'react-router-dom';
@@ -12,6 +12,7 @@ import unFollow from "./functions/unfollow";
 import ReplyMessages from "./ReplyMessages";
 import close from '../assets/icons8-close-24.png';
 import UploadBackgroundImage from "./functions/uploadBackgroundImage";
+import DeviceContext from "./context/deviceContext";
 
 const Profile = (props) => {
     const [image, setImage] = useState({image: 'https://www.google.com/images/spin-32.gif?a'});
@@ -31,6 +32,7 @@ const Profile = (props) => {
     const [counterHearts, setCounterHearts] = useState(0);
     const [replys, setReplys] = useState('');
     const [displayEdit, setDisplayEdit] = useState('none');
+    const { device } = useContext(DeviceContext);
 
     // users At
     let { at } = useParams();
@@ -459,9 +461,19 @@ const Profile = (props) => {
         
     }
 
+    const handleProfileWidth = () => {
+        if (device === 'computer') {
+            return '250px'
+        } else if (device === 'tablet') {
+            return '210px'
+        } else if (device === 'mobile') {
+            return '110px'
+        }
+    }
+
 
     return (
-        <div className="profile">
+        <div className="profile" style={{ marginLeft: handleProfileWidth() }}>
             {handleRender()}
             {handleMessages()}
             {handleReplys()}

@@ -1,7 +1,7 @@
 import '../styles/sidebar.css';
 import { Link } from 'react-router-dom';
 import Searchbar from './searchbar';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
     getFirestore,
     collection,
@@ -9,6 +9,7 @@ import {
     onSnapshot,
   } from 'firebase/firestore';
   import FollowUsers from './followUsers';
+  import DeviceContext from './context/deviceContext';
 
 
 const Sidebar = (props) => {
@@ -33,6 +34,7 @@ const Sidebar = (props) => {
             id: '',
         }
     });
+    const { device } = useContext(DeviceContext);
 
     useEffect(() => {
         if (props.data !== undefined) {
@@ -106,7 +108,7 @@ const Sidebar = (props) => {
 
 
     const handleContent = () => {
-        if (!props.loggedIn) {
+        if (!props.loggedIn && device !== 'mobile') {
             return (
                 <div className='sidebar-login'>
                     <h2>New to Gorillia?</h2>
@@ -134,7 +136,7 @@ const Sidebar = (props) => {
                     </div>
                 </div>
             )
-        } if (randomUsers.first.uid !== '') {
+        } if (randomUsers.first.uid !== '' && device !== 'mobile') {
             return (
                 <div className='sidebar-container'>
                     <div className='sidebar-searchbar'>
@@ -151,7 +153,7 @@ const Sidebar = (props) => {
                 </div>
                 </div>
             )
-        } else {
+        } else if (randomUsers.first.uid === '' && device !== 'mobile'){
             return (
                 <div className='sidebar-container'>
                     <Searchbar />
@@ -164,7 +166,7 @@ const Sidebar = (props) => {
 
 
 return (
-    <div className="sidebar">
+    <div className="sidebar" style={{maxWidth: device === 'mobile' ? '0px' : '350px'}}>
         {handleContent()}
 </div>
 )
