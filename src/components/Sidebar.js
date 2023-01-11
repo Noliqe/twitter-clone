@@ -117,23 +117,6 @@ const Sidebar = (props) => {
                     <Link to='/signup'>
                     <button>Sign up with email</button>
                     </Link>
-                    <div className='footer-login'>
-                    <div className='footer-login-filling'></div>
-                        <div className='footer-login-container'>
-                        <div className='footer-login-text'>
-                        <h3>Don't miss what's happening</h3>
-                        <h4>People on Gorillia are the first to know.</h4>
-                        </div>
-                    <div className='footer-buttons'>
-                        <Link to='/login'>
-                        <button className='footer-login-btn'>Log in</button>
-                        </Link>
-                        <Link to='/signup'>
-                        <button className='footer-signup-btn'>Sign up</button>
-                        </Link>
-                    </div>
-                        </div>
-                    </div>
                 </div>
             )
         } if (randomUsers.first.uid !== '' && device !== 'mobile') {

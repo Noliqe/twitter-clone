@@ -3,6 +3,7 @@ import '../styles/signup.css';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../config/firebase-config';
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const Signup = (props) => {
     const [usersAt, setUsersAt] = useState([]);
@@ -45,13 +46,13 @@ const Signup = (props) => {
         <input type="file" id="file" name="file" accept="image/*" capture="camera" required></input><br></br>
 
         <label htmlFor="at-sign" className='labelSignUp'>At:</label><br></br>
-        <input type="text" id="at-sign" name="at-sign" required></input><br></br>
+        <input type="text" id="at-sign" name="at-sign" required placeholder='John'></input><br></br>
 
         <label htmlFor="name" className='labelSignUp'>Name:</label><br></br>
-        <input type="text" id="name" name="name" required></input><br></br>
+        <input type="text" id="name" name="name" required placeholder='John'></input><br></br>
 
         <label htmlFor="Email" className='labelSignUp'>Email:</label><br></br>
-        <input type="Email" id="Email" name="Email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Invalid email address" required></input><br></br>
+        <input type="Email" id="Email" name="Email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" required placeholder='JohnDoe@gmail.com'></input><br></br>
 
         <label htmlFor="Password" className='labelSignUp'>Password:</label><br></br>
         <input type="password" id="Password" name="Password" minLength='6' title='Password minimum length is 6' required></input><br></br>
@@ -59,7 +60,10 @@ const Signup = (props) => {
         <input type='submit' value='Register'></input>
     </form>
     <div className='signup-check'>
-        Already have an account? Login here!
+        <p style={{marginTop: '5px'}}>Already have an account?</p>
+        <Link to='/login'>
+        <p style={{marginTop: '5px'}}>Login here!</p>
+        </Link>
     </div>
     </div>
 </div>

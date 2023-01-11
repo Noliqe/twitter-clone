@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Content from './Content';
 import Header from './Header';
 import Sidebar from './Sidebar';
+import '../styles/sidebar.css';
 import SignUp from './SignUp';
 import Logout from './Logout';
 import Login from './Login';
@@ -16,6 +17,7 @@ import DeviceContext from "./context/deviceContext";
 import { auth, storage } from '../config/firebase-config';
 import { onAuthStateChanged } from "firebase/auth";
 import getProfilePicUrl from './functions/profilePicture';
+import { Link } from 'react-router-dom';
 import { where, collection, getFirestore, query, onSnapshot } from 'firebase/firestore';
 
 function App() {
@@ -75,6 +77,31 @@ const getAt = () => {
   });
 }
 
+const handleFooter = () => {
+  if (!loggedIn) {
+    return (
+      <div className='footer-login'>
+      <div className='footer-login-filling'></div>
+          <div className='footer-login-container'>
+          <div className='footer-login-text'>
+          <h3>Don't miss what's happening</h3>
+          <h4>People on Gorillia are the first to know.</h4>
+          </div>
+      <div className='footer-buttons'>
+          <Link to='/login'>
+          <button className='footer-login-btn'>Log in</button>
+          </Link>
+          <Link to='/signup'>
+          <button className='footer-signup-btn'>Sign up</button>
+          </Link>
+      </div>
+          </div>
+      </div>
+    )
+  }
+}
+
+
 useEffect(() => {
   const handleResize = () => {
     const width = window.innerWidth;
@@ -106,6 +133,7 @@ useEffect(() => {
     <div className='App' style={{paddingLeft: appWidth}}>
     <BrowserRouter>
     <DeviceContext.Provider value={{ device: width }}>
+    {handleFooter()}
     <Routes>
     <Route path="/" element={<><Header loggedIn={loggedIn} data={data}/><Content loggedIn={loggedIn} data={data}/><Sidebar loggedIn={loggedIn} data={data}/></>} />
     <Route path="/explore" element={<><Header loggedIn={loggedIn} data={data}/><Explore loggedIn={loggedIn} data={data}/><Sidebar loggedIn={loggedIn} data={data}/></>} />
