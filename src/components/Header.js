@@ -113,7 +113,7 @@ return (
                 <p style={{ display: device === 'mobile' ? 'none' : 'block' }}>Profile</p>
         </li>
         </Link>
-        <button style={{ width: device === 'mobile' ? '' : '160px' }}>{writeImg()}</button>
+        <button style={{ width: device === 'mobile' ? '' : '160px', display: props.loggedIn ? 'block' : 'none' }}>{writeImg()}</button>
     </ul>
     </div>
     {handleRender()}

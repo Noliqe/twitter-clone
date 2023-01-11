@@ -99,7 +99,7 @@ const Following = (props) => {
             </Link>
                 <div className="following-topbar-container">
                     <p style={{fontWeight: '700'}}>{props.current.name}</p>
-                    <p>@{props.current.userAt}</p>
+                    <p>@{at}</p>
                 </div>
             </div>
             <div className='following-div-btns'>

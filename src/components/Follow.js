@@ -54,7 +54,7 @@ const FollowContainer = (props) => {
 
         // checks if currentUser follows profile user
     useEffect(() => {
-        if ( userData.name !== '' && props.checkFor !== undefined) {
+        if ( userData.name !== '' && props.checkFor !== undefined && props.current !== '') {
             db.collection("users")
             .where("userAt", "==", props.current.userAt)
             .get()
@@ -101,16 +101,18 @@ const FollowContainer = (props) => {
     }
 
     const handleButton = () => {
-        if (props.checkFor === 'following') {
-            if (!following) {
-                return <button onClick={() => {followUser()}}>Follow</button>
+        if (props.current !== '') {
+            if (props.checkFor === 'following') {
+                if (!following) {
+                    return <button onClick={() => {followUser()}}>Follow</button>
+                }
+                return <button onClick={() => {unFollowUser()}}>Unfollow</button>
+            } else if (props.checkFor === 'followers') {
+                if (!followers) {
+                    return <button onClick={() => {followUser()}}>Follow</button>
+                }
+                return <button onClick={() => {unFollowUser()}}>Unfollow</button>
             }
-            return <button onClick={() => {unFollowUser()}}>Unfollow</button>
-        } else if (props.checkFor === 'followers') {
-            if (!followers) {
-                return <button onClick={() => {followUser()}}>Follow</button>
-            }
-            return <button onClick={() => {unFollowUser()}}>Unfollow</button>
         }
     }
 

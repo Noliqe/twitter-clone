@@ -100,7 +100,7 @@ const Followers = (props) => {
             </Link>
                 <div className="followers-topbar-container">
                     <p style={{fontWeight: '700'}}>{props.current.name}</p>
-                    <p>@{props.current.userAt}</p>
+                    <p>@{at}</p>
                 </div>
             </div>
             <div className='followers-div-btns'>

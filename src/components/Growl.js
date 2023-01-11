@@ -164,7 +164,7 @@ const Growl = (props) => {
         }
     }
 
-    const handleGrowlWidth = () => {
+    const handleGrowlMargin = () => {
         if (device === 'computer') {
             return '250px'
         } else if (device === 'tablet') {
@@ -174,8 +174,18 @@ const Growl = (props) => {
         }
     }
 
+    const handleGrowlWidth = () => {
+        if (device === 'computer') {
+            return '600px'
+        } else if (device === 'tablet') {
+            return '250px'
+        } else if (device === 'mobile') {
+            return '70vw'
+        }
+    }
+
     return (
-        <div className="growl" style={{ marginLeft: handleGrowlWidth() }}>
+        <div className="growl" style={{ marginLeft: handleGrowlMargin(), width: handleGrowlWidth() }}>
             <div className="growl-topbar">
                 <div className="growl-topbar-image">
                     <Link to='/'>

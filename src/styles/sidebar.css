@@ -39,16 +39,32 @@
 }
 
 .sidebar-login > p {
-    width: 20vw;
     text-align: center;
 }
 
 .sidebar-login > button {
-    width: 150px;
+    padding: 8px 16px;
+    border-radius: 30px;
+    border: 0px;
+    color: white;
+    background-color: rgb(151, 151, 151);
 }
 
 .sidebar-login > a > button {
-    width: 150px;
+    padding: 8px 16px;
+    border-radius: 30px;
+    border: 0px;
+    color: white;
+    background-color: rgb(151, 151, 151);
+    margin-top: 10px;
+}
+
+.sidebar-login > button:hover {
+    background-color: rgb(119, 119, 119);
+}
+
+.sidebar-login > a > button:hover {
+    background-color: rgb(119, 119, 119);
 }
 
 .sidebar-follow {

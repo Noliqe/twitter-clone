@@ -1,5 +1,4 @@
 import '../styles/explore.css';
-import SaveMessage from './functions/saveMessage';
 import Message from './Message';
 import Searchbar from './searchbar';
 import React, { useState, useEffect, useContext } from 'react';
@@ -13,7 +12,7 @@ import {
   } from 'firebase/firestore';
 
 
-const Content = (props) => {
+const Explore = (props) => {
     const [growls, setGrowls] = useState('');
     const { device } = useContext(DeviceContext);
 
@@ -37,15 +36,6 @@ const Content = (props) => {
           setGrowls(arr);
         });
         
-    }
-
-    const handleEvent = (event) => {
-        event.preventDefault()
-        let date = new Date().toLocaleDateString("en-US");
-        console.log(event.target[0].value);
-        SaveMessage(event.target[0].value, props.data.userAt, date);
-        event.target[0].value = '';
-        LoadMessage();
     }
 
     const handleMessages = () => {
@@ -105,4 +95,4 @@ const Content = (props) => {
     )
 }
 
-export default Content;
+export default Explore;
